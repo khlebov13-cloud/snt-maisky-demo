@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2F6B45">
+<meta name="description" content="СНТ «Майский»: объявления, документы, личный кабинет (демо-версия)">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Майский">
+<title>СНТ «Майский» (демо)</title>
+<style>
+  :root{--ink:#1C2B22;--muted:#586A5F;--field:#2F6B45;--field-soft:#E3EFE6;--paper:#F7FAF8;--line:#CFDCD3;--sun:#F4B400;--sun-soft:#FFF3CC;--water:#245F8F;--bad:#F8DCDC;--badink:#8A1F1F}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.5 "Segoe UI",Roboto,Arial,sans-serif;padding-bottom:84px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0}
+  h2{font-size:26px;margin-bottom:10px}
+  h3{font-size:20px}
+  a{color:var(--water)}
+  :focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+  [hidden]{display:none!important}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+  /* Шапка */
+  header{background:var(--field);color:#fff}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+  .brand{font-family:Georgia,serif;font-size:22px;font-weight:700}
+  .top{display:flex;gap:6px}
+  .top button{border:1px solid #fff;background:transparent;color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:16px;cursor:pointer}
+  .top button[aria-pressed="true"]{background:#fff;color:var(--field);font-weight:700}
+
+  /* Общее */
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 2px rgba(20,50,30,.05),0 8px 20px rgba(20,50,30,.06)}
+  .kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .kv:last-child{border-bottom:0}
+  .muted{color:var(--muted);font-size:15px}
+  .debt{color:#9A5B00;font-weight:700}
+  .ok{color:var(--field);font-weight:700}
+  .chip{display:inline-block;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:600;background:var(--field-soft);color:var(--field)}
+  .chip.wait{background:var(--sun-soft);color:#6A4B00}
+  .chip.no{background:var(--bad);color:var(--badink)}
+  .chip.done{background:var(--field);color:#fff}
+  .media{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .media img,.media video{max-width:100%;max-height:200px;border-radius:10px;border:1px solid var(--line)}
+  .cm{background:var(--field-soft);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:16px}
+  textarea.fld{resize:vertical}
+  label.lb{display:block;font-weight:600;margin:12px 0 4px}
+  .fld{font:inherit;width:100%;padding:11px;border:1px solid #98AA9E;border-radius:8px;background:#fff}
+  .btn{background:var(--field);color:#fff;border:0;border-radius:8px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer;margin-top:12px}
+  .btn:hover{background:#255838}
+  .btn.alt{background:#fff;color:var(--field);border:1px solid var(--field)}
+  .btn.bad{background:#fff;color:var(--badink);border:1px solid var(--badink)}
+  .btn.sm{padding:7px 12px;font-size:15px;margin-top:8px;margin-right:6px}
+  .chk{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:17px}
+  .chk input{width:22px;height:22px;margin-top:2px;flex:none}
+  .flash{background:var(--field-soft);border-left:5px solid var(--field);padding:10px 14px;border-radius:6px;margin:0 0 14px;font-weight:600}
+  .warn{background:var(--sun-soft);border-left:5px solid var(--sun);padding:10px 14px;border-radius:6px;margin:0 0 14px}
+
+  /* Главная */
+  .hero{position:relative;color:#fff;padding:64px 0 70px;min-height:400px;display:flex;align-items:flex-end;
+    background:
+      linear-gradient(180deg,rgba(14,40,24,.22) 0%,rgba(14,40,24,.80) 100%),
+      url(hero.jpg) center/cover no-repeat,
+      radial-gradient(120% 60% at 15% 112%,#3F8A59 0 55%,transparent 56%),
+      radial-gradient(120% 50% at 92% 116%,#2A5E3C 0 55%,transparent 56%),
+      linear-gradient(#8EC5E8 0%,#CFE8F0 55%,#F2F7E8 100%)}
+  .hero .wrap{width:100%}
+  .hero .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);border-radius:20px;padding:4px 14px;font-size:14px;margin-bottom:14px;backdrop-filter:blur(4px)}
+  .hero h1{font-size:clamp(34px,8vw,60px);max-width:14ch;text-shadow:0 2px 16px rgba(0,0,0,.4)}
+  .hero p{max-width:48ch;color:#EEF6F0;margin:14px 0 0;font-size:19px;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+  .hero .actions{margin-top:22px}
+  .btn.light{background:#fff;color:var(--field);margin:0 8px 8px 0}
+  .btn.light:hover{background:var(--field-soft)}
+  .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.7);margin:0 8px 8px 0}
+  .alert{display:flex;gap:12px;align-items:flex-start;margin-top:-34px;position:relative;z-index:2;background:var(--sun);color:#2A2100;border-radius:14px;padding:14px 18px;max-width:640px;box-shadow:0 10px 26px rgba(0,0,0,.2)}
+  .alert b{display:block}
+  .alert .ic{font-size:26px;line-height:1.2}
+  .hint{margin:12px 0 0}
+  #home section{padding:34px 0 4px;animation:rise .55s ease both}
+  #home h2::before{content:"";display:inline-block;width:6px;height:24px;background:var(--sun);border-radius:3px;margin-right:10px;vertical-align:-3px}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .sub{color:var(--muted);margin:0 0 16px}
+  .mapbox{display:grid;gap:16px}
+  @media(min-width:800px){.mapbox{grid-template-columns:1.25fr 1fr}}
+  .map{background:linear-gradient(180deg,#EAF4EC,#DCEBE0);border:1px solid var(--line);border-radius:16px;padding:14px}
+  .street{font-size:14px;color:var(--muted);margin:8px 0 6px}
+  .street:first-child{margin-top:0}
+  .row{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+  .plot{aspect-ratio:1;border:1px solid var(--line);background:#fff;border-radius:6px;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0}
+  .plot:hover{border-color:var(--field)}
+  .plot[aria-pressed="true"]{background:var(--field);color:#fff;border-color:var(--field);outline:3px solid var(--ink);outline-offset:1px}
+  .plot.p-chair,.plot.p-chair[aria-pressed="true"],.sw.p-chair{background:#F4B400;border-color:#C98F00;color:#2A2100}
+  .plot.p-board,.plot.p-board[aria-pressed="true"],.sw.p-board{background:#245F8F;border-color:#1B4A71;color:#fff}
+  .plot.p-senior,.plot.p-senior[aria-pressed="true"],.sw.p-senior{background:#D9772B;border-color:#B05E1D;color:#fff}
+  .plot.r-perm{box-shadow:inset 0 -5px 0 #2F9E5B}
+  .plot.r-seasonal{box-shadow:inset 0 -5px 0 #E0A100}
+  .plot.r-absent{box-shadow:inset 0 -5px 0 #B3392F}
+  .sw.r-perm{background:#2F9E5B;border-color:#2F9E5B}
+  .sw.r-seasonal{background:#E0A100;border-color:#E0A100}
+  .sw.r-absent{background:#B3392F;border-color:#B3392F}
+  .sw.r-unknown{background:#9AA8A0;border-color:#9AA8A0}
+  .mapctl{display:flex;gap:8px;align-items:center;margin:10px 0}
+  .mapctl select{flex:1}.mapctl input{width:130px}.mapctl .btn{margin:0}
+  .plot.p-accountant,.plot.p-accountant[aria-pressed="true"],.sw.p-accountant{background:#2D7F86;border-color:#1F6469;color:#fff}
+  .plot.p-electrician,.plot.p-electrician[aria-pressed="true"],.sw.p-electrician{background:#8A4F9E;border-color:#6E3C80;color:#fff}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:96px;margin:10px 0 14px}
+  .bars .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px;color:var(--muted)}
+  .bars .b{width:100%;background:var(--field);border-radius:4px 4px 0 0}
+  .pbar{height:12px;border-radius:6px;background:var(--line);overflow:hidden;margin:4px 0 2px}
+  .pbar i{display:block;height:100%;background:var(--field)}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--muted)}
+  .legend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px;border:1px solid}
+  .news{list-style:none;margin:0;padding:0}
+  .news li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 2px rgba(20,50,30,.05),0 6px 16px rgba(20,50,30,.05)}
+  .news time{display:inline-block;font-size:13px;font-weight:600;background:var(--field-soft);color:var(--field);border-radius:12px;padding:1px 10px;margin-bottom:4px}
+  .news strong{display:block}
+  .docs{list-style:none;margin:0;padding:0}
+  .docs li{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:8px}
+  .docs li::before{content:"\1F4C4";font-size:22px}
+  .docs li span:first-child{flex:1}
+  .docs .t{color:var(--muted);font-size:14px;white-space:nowrap}
+  .contacts{display:grid;gap:12px}
+  @media(min-width:800px){.contacts{grid-template-columns:repeat(3,1fr)}}
+  footer{margin-top:30px;padding:22px 0;color:var(--muted);font-size:15px;border-top:1px solid var(--line);text-align:center}
+
+  /* Кабинет */
+  .demo-note{font-size:14px;color:var(--muted);margin:14px 0 8px}
+  .seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .seg button{flex:1 1 auto;border:1px solid var(--field);background:#fff;color:var(--field);border-radius:8px;padding:9px 10px;font:inherit;font-size:16px;cursor:pointer}
+  .seg button[aria-pressed="true"]{background:var(--field);color:#fff;font-weight:700}
+  #app{padding-top:14px}
+  .tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:16px;border-bottom:1px solid var(--line)}
+  .tabs button{border:0;background:none;font:inherit;font-size:17px;padding:10px 12px;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent}
+  .tabs button[aria-selected="true"]{color:var(--field);font-weight:700;border-bottom-color:var(--field)}
+  .vrow{padding:10px 0;border-top:1px solid var(--line)}
+  .vbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .vbtns button{border:1px solid var(--field);background:#fff;color:var(--field);border-radius:8px;padding:8px 12px;font:inherit;font-size:16px;cursor:pointer}
+  .vbtns button[aria-pressed="true"]{background:var(--field);color:#fff}
+  .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line);margin:8px 0 4px}
+  .bar i{display:block}
+
+  .av{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;color:#fff;font-weight:700;object-fit:cover;flex:none;font-size:16px}
+  .av.sm{width:34px;height:34px;font-size:13px}
+  .av.lg{width:96px;height:96px;font-size:34px}
+  .msg{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+  .msg .b{flex:1;min-width:0;overflow-wrap:anywhere}
+  .msg .who{font-weight:700}
+  .msg.hid{opacity:.55}
+  .msg.mine{background:var(--field-soft);border-radius:10px;padding:9px 10px;border-top:0;margin:4px 0}
+  .avbtn{background:none;border:0;padding:0;cursor:pointer;border-radius:50%;display:inline-flex;flex:none}
+  .avbtn:hover .av{opacity:.85}
+  .nm{background:none;border:0;padding:0;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;text-align:left}
+  .nm:hover{text-decoration:underline}
+  .lnk{background:none;border:0;color:var(--water);font:inherit;font-size:14px;padding:0;cursor:pointer;text-decoration:underline}
+  .row2{display:flex;align-items:center;gap:12px}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--sun);margin-left:6px}
+
+  /* Нижняя панель (как в приложении) */
+  nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 4px;z-index:5}
+  nav button{flex:1;text-align:center;border:0;background:none;color:var(--muted);font:inherit;font-size:13px;padding:6px 2px;border-radius:8px;cursor:pointer}
+  nav button b{display:block;font-size:20px;line-height:1.2;font-weight:400}
+  nav button[aria-current="true"]{color:var(--field);background:var(--field-soft);font-weight:700}
+  @media(min-width:800px){nav{display:none}body{padding-bottom:30px}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#home section{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">СНТ «Майский»</div>
+    <div class="top" role="group" aria-label="Раздел">
+      <button id="tHome" aria-pressed="true" onclick="show('home')">Главная</button>
+      <button id="tCab" aria-pressed="false" onclick="show('cab')">Личный кабинет</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ГЛАВНАЯ ============ -->
+<div id="home">
+  <div class="hero">
+    <div class="wrap">
+      <span class="badge">&#127807; Садоводческое товарищество</span>
+      <h1>СНТ «Майский»</h1>
+      <p>Объявления, документы, взносы и голосования в одном месте. Открывается с телефона и компьютера.</p>
+      <p class="actions">
+        <button class="btn light" onclick="show('cab')">Войти или подать заявку</button>
+        <button class="btn ghost" id="inst" hidden>Установить приложение</button>
+      </p>
+    </div>
+  </div>
+  <div id="homeLock" class="wrap" hidden>
+    <div class="card" style="margin-top:22px"><h3>Информация доступна только жителям</h3>
+      <p>Новости, документы, карта участков, чат и контакты видны только подтверждённым жителям СНТ. Подайте заявку на доступ: после проверки правлением вы получите доступ.</p>
+      <button class="btn" onclick="show('cab')">Подать заявку или войти</button></div>
+  </div>
+  <div id="homeBody">
+  <div class="wrap">
+    <div class="alert"><span class="ic">&#128226;</span><div><b>Отключение воды в субботу</b>Вода будет отключена с 9:00 до 15:00 на улицах 1 и 2. Запаситесь заранее.</div></div>
+    <p class="muted hint">Установка на телефон. iPhone: «Поделиться», затем «На экран Домой». Android: меню браузера, «Установить приложение».</p>
+    <div id="homeBanner" style="margin-top:14px"></div>
+  </div>
+
+  <main class="wrap">
+    <section id="plots">
+      <h2>Карта участков</h2>
+      <p class="sub">Нажмите на номер участка, чтобы увидеть его данные.</p>
+      <div class="mapbox">
+        <div class="map" id="map"></div>
+        <div class="card" id="plotCard" aria-live="polite"><h3>Выберите участок</h3><p>Здесь появятся площадь, взносы и последние показания счётчика.</p></div>
+      </div>
+    </section>
+
+    <section id="chat">
+      <h2>Общий чат</h2>
+      <p class="sub">Для жителей СНТ. Демо: чат показан от имени роли, выбранной в кабинете.</p>
+      <div id="homeChat"></div>
+    </section>
+
+    <section id="polls">
+      <h2>Опросы жителей</h2>
+      <p class="sub">Мнение жителей помогает правлению принимать решения. Опрос не заменяет решение общего собрания.</p>
+      <div id="homePolls"></div>
+    </section>
+
+    <section id="news">
+      <h2>Объявления</h2>
+      <p class="sub">Последние новости от правления.</p>
+      <ul class="news">
+        <li><time>12 октября</time><strong>Общее собрание членов СНТ</strong>Начало в 11:00 у правления. Повестка и бюллетени в разделе «Документы».</li>
+        <li><time>5 октября</time><strong>Вывоз мусора</strong>Контейнеры будут убраны до весны. Крупный мусор: по заявке председателю.</li>
+        <li><time>28 сентября</time><strong>Ремонт дороги на 3-й улице</strong>Проезд ограничен на три дня. Объезд через 1-ю улицу.</li>
+      </ul>
+    </section>
+
+    <section id="docs">
+      <h2>Документы</h2>
+      <p class="sub">Документы СНТ для жителей.</p>
+      <ul class="docs">
+        <li><span>Устав СНТ «Майский»</span><span class="t">PDF</span></li>
+        <li><span>Протокол последнего собрания</span><span class="t">PDF</span></li>
+        <li><span>Смета и размер взносов</span><span class="t">PDF</span></li>
+        <li><span>Реестр членов товарищества</span><span class="t">после входа</span></li>
+      </ul>
+    </section>
+
+    <section id="contacts">
+      <h2>Контакты правления</h2>
+      <div class="contacts">
+        <div class="card"><h3>Председатель</h3><p class="muted">Имя и телефон</p></div>
+        <div class="card"><h3>Бухгалтер</h3><p class="muted">Имя и телефон</p></div>
+        <div class="card"><h3>Электрик</h3><p class="muted">Имя и телефон</p></div>
+      </div>
+    </section>
+
+    <section id="ads">
+      <h2>Реклама</h2>
+      <p class="sub">Платное размещение для жителей и местных мастеров. <button class="lnk" onclick="orderAdLink()">Разместить рекламу</button></p>
+      <div id="homeAds"></div>
+    </section>
+
+    <footer>СНТ «Майский». Демо-версия: все данные на странице вымышленные.<br>
+      <a href="https://nspd.gov.ru/map?thematic=PKK" target="_blank" rel="noopener noreferrer">Публичная кадастровая карта (НСПД, Росреестр)</a></footer>
+  </main>
+  </div>
+</div>
+
+<!-- ============ КАБИНЕТ ============ -->
+<div id="cab" hidden>
+  <div class="wrap">
+    <div class="demo-note">Демонстрация: данные вымышленные, СМС не отправляются (код 1234). Выберите, от чьего имени смотреть:</div>
+    <div class="seg" id="roles"></div>
+    <div id="app"></div>
+  </div>
+</div>
+
+<nav aria-label="Разделы">
+  <button id="n1" onclick="show('home')" aria-current="true"><b>🏠</b>Главная</button>
+  <button id="n2" onclick="show('home','news')"><b>📢</b>Новости</button>
+  <button id="n3" onclick="show('home','docs')"><b>📄</b>Документы</button>
+  <button id="n5" onclick="show('home','chat')"><b>💬</b>Чат</button>
+  <button id="n4" onclick="show('cab')"><b>👤</b>Кабинет</button>
+</nav>
+
+<script>
+/* ---------- Переключение экранов ---------- */
+function show(screen,anchor){
+  const home=screen==='home';
+  if(home)profileOpen=null;
+  document.getElementById('home').hidden=!home;
+  document.getElementById('cab').hidden=home;
+  document.getElementById('tHome').setAttribute('aria-pressed',home);
+  document.getElementById('tCab').setAttribute('aria-pressed',!home);
+  const cur=!home?'n4':anchor==='news'?'n2':anchor==='docs'?'n3':anchor==='chat'?'n5':'n1';
+  ['n1','n2','n3','n4','n5'].forEach(id=>{const b=document.getElementById(id);b.setAttribute('aria-current',id===cur)});
+  const el=anchor&&document.getElementById(anchor);
+  if(el)el.scrollIntoView(); else window.scrollTo(0,0);
+}
+
+/* ---------- Участки: 4 квартала по 20 улиц, карта ---------- */
+const RES={perm:['Проживает постоянно','#2F9E5B'],seasonal:['Живёт сезонно','#E0A100'],absent:['Давно не проживает','#B3392F'],unknown:['Нет данных','#9AA8A0']};
+function buildStreets(){
+  const arr=[];let n=1;
+  for(let q=1;q<=4;q++)for(let st=1;st<=20;st++){
+    const cnt=st<=5?17:16,plots=[];
+    for(let i=0;i<cnt;i++)plots.push(n++);
+    arr.push({q,s:st,plots});
+  }
+  return arr;
+}
+let mapQ=1,mapS=1,mapSel=null;
+function plotStreet(n){return S.streets.find(st=>st.plots.includes(n))}
+function totalPlots(){return S.streets.reduce((a,st)=>a+st.plots.length,0)}
+function plotInfo(n){
+  if(!S.plotInfo[n]){
+    const r=n%11===0?'unknown':n%7===0?'absent':n%3===0?'seasonal':'perm';
+    S.plotInfo[n]={area:600+(n*37)%400,cad:'00:00:000000:'+n,res:r};
+  }
+  return S.plotInfo[n];
+}
+function canSeeRes(){return view==='chair'||view==='admin'||(view!=='reg'&&S.showRes)}
+function setMapQ(q){mapQ=q;mapS=1;buildMap()}
+function setMapStreet(v){mapS=Number(v);buildMap()}
+function findPlot(){
+  const n=Number(document.getElementById('mapFind').value);
+  mapSel=n;const st=plotStreet(n);if(st){mapQ=st.q;mapS=st.s}
+  buildMap();
+}
+function showPlot(n){mapSel=n;const st=plotStreet(n);if(st){mapQ=st.q;mapS=st.s}buildMap()}
+function buildMap(){
+  const el=document.getElementById('map');if(!el)return;
+  const st=S.streets.find(x=>x.q===mapQ&&x.s===mapS)||S.streets[0],canRes=canSeeRes();
+  const qs=[1,2,3,4].map(q=>`<button type="button" aria-pressed="${q===mapQ}" onclick="setMapQ(${q})">Квартал ${q}</button>`).join('');
+  const opts=S.streets.filter(x=>x.q===mapQ).map(x=>`<option value="${x.s}" ${x.s===mapS?'selected':''}>${x.s}-я улица (${x.plots.length} уч.)</option>`).join('');
+  const btns=st.plots.map(n=>{
+    const o=officerOf(n),r=canRes?plotInfo(n).res:'';
+    return `<button type="button" class="plot${o?' p-'+o.post:''}${r&&r!=='unknown'?' r-'+r:''}" aria-pressed="${mapSel===n}" aria-label="Участок ${n}${o?', '+esc(postLabel(o)):''}${r?', '+RES[r][0]:''}" onclick="showPlot(${n})">${n}</button>`}).join('');
+  const legRes=canRes?Object.keys(RES).map(k=>`<span><i class="sw r-${k}"></i>${RES[k][0]}</span>`).join(''):'';
+  el.innerHTML=`<div class="seg">${qs}</div>
+    <div class="mapctl"><select class="fld" id="mapStreetSel" onchange="setMapStreet(this.value)" aria-label="Улица">${opts}</select>
+    <input class="fld" id="mapFind" type="number" min="1" placeholder="№ участка" aria-label="Номер участка"><button class="btn sm" onclick="findPlot()">Найти</button></div>
+    <div class="street">Квартал ${st.q}, ${st.s}-я улица · участков: ${st.plots.length}</div>
+    <div class="row">${btns}</div>
+    <div class="legend"><span><i class="sw p-chair"></i>Председатель</span><span><i class="sw p-board"></i>Член правления</span><span><i class="sw p-senior"></i>Старший по улице</span><span><i class="sw p-accountant"></i>Бухгалтер</span><span><i class="sw p-electrician"></i>Электрик</span>${legRes}</div>
+    <p class="muted">Всего участков в СНТ: ${totalPlots()}.${canRes?' Полоска внизу участка показывает проживание.':''}</p>`;
+  renderPlotCard();
+}
+function renderPlotCard(){
+  const card=document.getElementById('plotCard');if(!card)return;
+  if(mapSel==null){card.innerHTML='<h3>Выберите участок</h3><p>Здесь появятся данные участка.</p>';return}
+  const n=mapSel,st=plotStreet(n);
+  if(!st){card.innerHTML='<h3>Участок не найден</h3><p class="muted">Проверьте номер.</p>';return}
+  const o=officerOf(n),info=plotInfo(n),area=n===S.plot.num?S.plot.area:info.area,r=canSeeRes()?info.res:null;
+  card.innerHTML=(o?
+    `<span class="chip ${o.post==='chair'?'wait':o.post==='board'?'':'done'}">${esc(postLabel(o))}</span><h3 style="margin:8px 0">${esc(officerName(o))}</h3>
+     <div class="kv"><span>Ответственность</span><span>${esc(o.duty)}</span></div>
+     <div class="kv"><span>Приём</span><span>${esc(o.hours)}</span></div>
+     <button class="btn" onclick="askOfficer('${o.id}')">Задать вопрос</button><hr style="border:0;border-top:1px solid var(--line);margin:14px 0">`:'')+
+    `<h3>Участок ${n}</h3><div class="kv"><span>Квартал</span><span>${st.q}</span></div><div class="kv"><span>Улица</span><span>${st.s}-я улица</span></div>
+     <div class="kv"><span>Площадь</span><span>${area} м²</span></div><div class="kv"><span>Кадастровый номер</span><span>${esc(info.cad)}</span></div>
+     ${r?`<div class="kv"><span>Проживание</span><b style="color:${RES[r][1]}">${RES[r][0]}</b></div>`:''}
+     <p class="muted">Взносы и показания счётчика видит только владелец участка после входа.</p>`;
+}
+
+/* ---------- Данные кабинета (только в памяти страницы) ---------- */
+const permLabels={fees:'Видеть взносы и долги',meter:'Передавать показания счётчика',docs:'Смотреть документы и реестр',vote:'Голосовать на собраниях',notify:'Получать уведомления',appeals:'Писать обращения и отмечать проблемы',chat:'Общаться в чатах и личных сообщениях'};
+const roleDefaults={
+  'Член семьи':{fees:true,meter:true,docs:true,vote:false,notify:true,appeals:true,chat:true},
+  'Арендатор':{fees:false,meter:true,docs:true,vote:false,notify:true,appeals:true,chat:true},
+  'Доверенное лицо':{fees:true,meter:true,docs:true,vote:true,notify:true,appeals:true,chat:true}
+};
+const Q=[{id:'q1',t:'Утвердить смету на 2027 год'},{id:'q2',t:'Отремонтировать дорогу на 3-й улице за счёт целевых взносов'}];
+const S={
+  rule:'owners',
+  requests:[
+    {id:1,plot:5,phone:'+7 900 111-22-33',kind:'Собственник',status:'pending'},
+    {id:2,plot:22,phone:'+7 900 444-55-66',kind:'Арендатор',status:'pending'}
+  ],
+  nextReq:3,nextUid:3,nextOid:2,
+  plot:{num:20,
+    owners:[{id:'o1',name:'Пётр Иванов',member:true}],
+    users:[
+      {id:'u1',name:'Мария Иванова',phone:'+7 900 000-11-22',role:'Член семьи',perms:{fees:true,meter:true,docs:true,vote:true,notify:true,appeals:true,chat:true},active:true},
+      {id:'u2',name:'Сергей Орлов',phone:'+7 900 333-44-55',role:'Арендатор',perms:{fees:false,meter:true,docs:true,vote:false,notify:true,appeals:true,chat:true},active:true}
+    ],
+    delegate:null,lastReading:9421,area:700,ownerPhone:'+7 900 123-45-67'},
+  ballots:{q1:{},q2:{}},
+  nextAp:5,
+  officers:[
+    {id:'ch',post:'chair',plot:12,duty:'Общее руководство, приём жителей',hours:'Сб 10:00–12:00 у правления',phone:''},
+    {id:'b17',post:'board',plot:20,duty:'Дороги и благоустройство',hours:'Вт, Чт 18:00–19:00',phone:''},
+    {id:'b3',post:'accountant',plot:3,name:'Ольга Николаевна Смирнова',duty:'Взносы, начисления и бухгалтерия',hours:'Пн 18:00–19:00',phone:'+7 900 222-33-44'},
+    {id:'b44',post:'electrician',plot:44,name:'Алексей Викторович Громов',duty:'Электрохозяйство и счётчики',hours:'Ср 19:00–20:00',phone:'+7 900 333-77-88'},
+    {id:'b60',post:'board',plot:60,name:'Игорь Сергеевич Власов',duty:'Благоустройство и безопасность',hours:'Чт 18:00–19:00',phone:'+7 900 555-60-60'},
+    {id:'s8',post:'senior',street:'1-1',plot:8,name:'Татьяна Ивановна Белова',duty:'Порядок на улице',hours:'ежедневно после 18:00',phone:'+7 900 444-11-22'},
+    {id:'s25',post:'senior',street:'1-2',plot:25,name:'Николай Павлович Козлов',duty:'Порядок на улице',hours:'ежедневно после 18:00',phone:'+7 900 444-33-44'},
+    {id:'s40',post:'senior',street:'1-3',plot:40,name:'Сергей Андреевич Лебедев',duty:'Порядок на улице',hours:'ежедневно после 18:00',phone:'+7 900 444-55-66'}
+  ],
+  postReqs:[],nextPr:1,nextOff:100,
+  people:[
+    {id:'o1',plot:20,about:'Живу на участке с 2012 года, занимаюсь дорогами и благоустройством.',birth:'1981-03-14',birthVis:'dm',avatar:null},
+    {id:'u1',plot:20,about:'Люблю розы и пионы.',birth:'1984-07-02',birthVis:'hidden',avatar:null},
+    {id:'u2',plot:20,about:'Арендую участок на сезон.',birth:'',birthVis:'hidden',avatar:null},
+    {id:'ch',plot:12,about:'Председатель с 2022 года. Всегда готов выслушать.',birth:'1968-11-23',birthVis:'dm',avatar:null},
+    {id:'b3',name:'Ольга Николаевна Смирнова',plot:3,about:'Бухгалтер. Помогу разобраться со взносами.',birth:'1975-05-09',birthVis:'full',avatar:null},
+    {id:'b44',name:'Алексей Викторович Громов',plot:44,about:'Электрик по профессии.',birth:'',birthVis:'hidden',avatar:null},
+    {id:'b60',name:'Игорь Сергеевич Власов',plot:60,about:'Занимаюсь благоустройством и безопасностью.',birth:'',birthVis:'hidden',avatar:null},
+    {id:'s8',name:'Татьяна Ивановна Белова',plot:8,about:'',birth:'',birthVis:'hidden',avatar:null},
+    {id:'s25',name:'Николай Павлович Козлов',plot:25,about:'Старший по 2-й улице.',birth:'',birthVis:'hidden',avatar:null},
+    {id:'s40',name:'Сергей Андреевич Лебедев',plot:40,about:'',birth:'',birthVis:'hidden',avatar:null},
+    {id:'r5',name:'Елена Кравцова',plot:5,about:'Выращиваю томаты.',birth:'1990-02-20',birthVis:'dm',avatar:null},
+    {id:'r22',name:'Дмитрий Соколов',plot:22,about:'',birth:'',birthVis:'hidden',avatar:null}
+  ],
+  chats:{
+    all:[{id:1,from:'ch',text:'Добрый вечер! Напоминаю: общее собрание 12 октября в 11:00 у правления.',t:'вчера, 19:05',hidden:false,reports:[]},
+         {id:2,from:'r5',text:'Спасибо! Будут ли бюллетени заранее?',t:'вчера, 19:20',hidden:false,reports:[]},
+         {id:3,from:'b3',text:'Да, документы уже в разделе «Документы».',t:'вчера, 19:31',hidden:false,reports:[]}],
+    '1-1':[{id:4,from:'s8',text:'Соседи, в субботу вывозим мусор с 1-й улицы.',t:'пн, 10:12',hidden:false,reports:[]}],
+    '1-2':[{id:5,from:'s25',text:'Просьба не оставлять мусор у ворот, контейнеры уберут до весны.',t:'вт, 09:40',hidden:false,reports:[]},
+         {id:6,from:'r22',text:'Понял, уберу.',t:'вт, 10:02',hidden:false,reports:[]}],
+    '1-3':[{id:7,from:'s40',text:'Ремонт дороги завершён, проезд открыт.',t:'ср, 12:30',hidden:false,reports:[]}]
+  },
+  dms:{
+    'b3|o1':[{from:'b3',text:'Пётр, добрый день! Квитанции за октябрь уже готовы.',t:'сегодня, 09:10',read:false}],
+    'o1|u1':[{from:'u1',text:'Не забудь передать показания счётчика.',t:'вчера, 20:00',read:true},{from:'o1',text:'Хорошо, сегодня передам.',t:'вчера, 20:05',read:true}]
+  },
+  blocks:{},muted:{},chatMods:{'1-2':['r22']},nextMsg:8,
+  streets:buildStreets(),plotInfo:{},showRes:false,resReqs:[],nextRr:1,resignReqs:[],nextRs:1,
+  ads:[{id:1,owner:'r22',title:'Доставка воды и стройматериалов',text:'Привезём песок, щебень, питьевую воду. Звоните!',contact:'+7 900 000-12-34',advertiser:'ИП Соколов Д.А.',inn:'000000000000',slot:'feed',months:3,price:3000,status:'paid',erid:'demo-erid-0001'}],
+  adPrices:{banner:3000,feed:1000},nextAd:2,
+  meter:{},fees:{20:{amount:4800,paid:true}},
+  polls:[
+    {id:1,q:'Нужна ли на территории СНТ детская площадка?',opts:['Да, нужна','Нет, не нужна','Нужна, если не повышать взносы'],base:[412,168,236],votes:{},open:true},
+    {id:2,q:'Нужно ли освещение главной дороги?',opts:['Да, на всех улицах','Только на главной дороге','Не нужно'],base:[301,455,98],votes:{},open:true},
+    {id:3,q:'Нужен ли шлагбаум на въезде?',opts:['Да','Нет','Затрудняюсь ответить'],base:[522,243,131],votes:{},open:true},
+    {id:4,q:'Какой день удобнее для общего субботника?',opts:['Первая суббота месяца','Последняя суббота месяца','Воскресенье'],base:[188,274,159],votes:{},open:true},
+    {id:5,q:'Нужен ли вывоз крупногабаритного мусора по графику?',opts:['Да, раз в сезон','Да, раз в месяц','Не нужен'],base:[367,142,64],votes:{},open:true}
+  ],nextPoll:6,
+  notifs:[
+    {id:1,to:'o1',kind:'appeal',text:'Председатель ответил на обращение «Вопрос по счётчику»',t:'вчера, 18:30',read:false,link:{appeal:3}},
+    {id:2,to:'o1',kind:'dm',text:'Новое сообщение от Ольга Николаевна Смирнова',t:'сегодня, 09:10',read:false,link:{dm:'b3'}}
+  ],notifPrefs:{},nextNt:3,
+  chair:{name:'Иван Сергеевич Петров',phone:'+7 900 555-00-11',active:true},
+  audit:[{t:'4 окт',who:'Председатель',what:'Ответил на обращение №1'},{t:'1 окт',who:'Администратор',what:'Назначил председателя: Иван Сергеевич Петров'}],
+  changes:[],nextCh:1,
+  appeals:[
+    {id:1,kind:'problem',authorId:'u1',author:'Мария Иванова',plot:20,title:'Яма на дороге',text:'После дождей на повороте 3-й улицы образовалась большая яма, машины объезжают по обочине.',place:'3-я улица, у участка 40',media:[],status:'work',created:'3 окт',supports:['u2','o1','x1','x2'],comments:[{who:'Председатель',text:'Принято, включили в график ремонта. Ориентировочно до конца октября.',date:'4 окт'}],hidden:false},
+    {id:2,kind:'public',authorId:'x3',author:'Участок 9',plot:9,title:'Когда будет собрание?',text:'Подскажите, будет ли в этом году осеннее собрание и где оно пройдёт?',place:'',media:[],status:'done',created:'1 окт',supports:[],comments:[{who:'Председатель',text:'Собрание 12 октября в 11:00 у правления.',date:'1 окт'}],hidden:false},
+    {id:3,kind:'personal',to:'ch',authorId:'o1',author:'Пётр Иванов',plot:20,title:'Вопрос по счётчику',text:'Прошу проверить начисление за сентябрь: показания переданы 20 числа.',place:'',media:[],status:'work',created:'5 окт',supports:[],comments:[{who:'Председатель',text:'Запрос передан бухгалтеру, ответим в течение трёх дней.',date:'6 окт'}],hidden:false},
+    {id:4,kind:'personal',to:'b17',authorId:'x4',author:'Участок 31',plot:31,title:'Не горит фонарь на 2-й улице',text:'У участка 29 не горит фонарь. Просьба передать электрику.',place:'',media:[],status:'new',created:'6 окт',supports:[],comments:[],hidden:false}
+  ]
+};
+let view='reg',regStep=1,reg={plot:'',phone:'',kind:'Собственник',consent:false,code:'',id:null},
+    adminTab='sys',chairTab='req',ownerTab='plot',apTab='mine',apOpen=false,apTo='ch',talkTab='chats',chatOpen=null,dmOpen=null,modChat='all',peopleQ='',profileOpen=null,staffTab='read',readSel=20,feeSel=20,admAp='personal',userSel='u1',userTab=null,flash='';
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const val=id=>($(id)?$(id).value.trim():'');
+function F(){const f=flash;flash='';return f?`<p class="flash" role="status">${esc(f)}</p>`:''}
+function tabsHtml(list,cur,fn){return `<div class="tabs" role="tablist">${list.map(([k,t])=>`<button role="tab" aria-selected="${k===cur}" onclick="${fn}('${k}')">${t}</button>`).join('')}</div>`}
+
+/* ---------- Подсчёт голосов ---------- */
+function voters(){
+  const p=S.plot;
+  if(p.delegate){const u=p.users.find(x=>x.id===p.delegate);return u?[{id:u.id,name:u.name+' (по доверенности)'}]:[]}
+  const members=p.owners.filter(o=>o.member);
+  if(S.rule==='plot')return members.length?[{id:'plot',name:'Участок '+p.num+' (один голос на участок)'}]:[];
+  return members.map(o=>({id:o.id,name:o.name}));
+}
+function tally(q){const c={for:0,against:0,abst:0};voters().forEach(v=>{const b=S.ballots[q][v.id];if(b)c[b]++});return c}
+function resetBallots(){S.ballots={q1:{},q2:{}}}
+
+/* ---------- Навигация кабинета ---------- */
+const ROLES=[['reg','Новый пользователь'],['chair','Председатель'],['admin','Администратор'],['acc','Бухгалтер'],['el','Электрик'],['owner','Собственник'],['user','Пользователь участка']];
+function setView(v){view=v;profileOpen=null;chatOpen=null;dmOpen=null;talkTab='chats';render()}
+function render(){
+  $('roles').innerHTML=ROLES.map(([k,t])=>`<button aria-pressed="${k===view}" onclick="setView('${k}')">${t}</button>`).join('');
+  $('app').innerHTML=(profileOpen&&view!=='reg')?otherProfileView(profileOpen):({reg:renderReg,chair:renderChair,admin:renderAdmin,acc:renderStaff,el:renderStaff,owner:renderOwner,user:renderUser})[view]();
+  const nu=(view==='owner'||view==='user'||view==='chair'||view==='acc'||view==='el')?notifUnread(viewer().id):0;
+  $('tCab').textContent='Личный кабинет'+(nu?' ('+nu+')':'');
+  $('homeLock').hidden=view!=='reg';$('homeBody').hidden=view==='reg';
+  ['n2','n3','n5'].forEach(id=>{$(id).hidden=view==='reg'});
+  renderHomeChat();renderHomeAds();renderHomePolls();buildMap();
+}
+
+/* ---------- 1. Регистрация ---------- */
+function readReg(){
+  if($('rPlot')){reg.plot=val('rPlot');reg.phone=val('rPhone');reg.consent=$('rOk').checked;
+    const k=document.querySelector('input[name=kind]:checked');if(k)reg.kind=k.value}
+}
+function regNext(){
+  readReg();
+  const digits=reg.phone.replace(/\D/g,'');
+  if(!plotStreet(Number(reg.plot))){flash='Такого участка нет. Проверьте номер.';return render()}
+  if(digits.length<10){flash='Введите номер телефона полностью.';return render()}
+  if(!reg.consent){flash='Нужно согласие на обработку персональных данных.';return render()}
+  regStep=2;flash='Код отправлен на '+reg.phone+'. В демо код: 1234.';render();
+}
+function regCode(){
+  if(val('rCode')!=='1234'){flash='Код не подошёл. В демо введите 1234.';return render()}
+  const r={id:S.nextReq++,plot:Number(reg.plot),phone:reg.phone,kind:reg.kind,status:'pending'};
+  S.requests.push(r);reg.id=r.id;regStep=3;flash='Телефон подтверждён. Заявка отправлена администратору.';render();
+}
+function regAgain(){regStep=1;reg={plot:'',phone:'',kind:'Собственник',consent:false,code:'',id:null};render()}
+function renderReg(){
+  if(regStep===1)return `${F()}<h2>Заявка на доступ</h2>
+  <div class="card">
+    <label class="lb" for="rPlot">Номер участка</label>
+    <input class="fld" id="rPlot" type="number" inputmode="numeric" min="1" value="${esc(reg.plot)}" placeholder="например, 17">
+    <label class="lb" for="rPhone">Номер телефона</label>
+    <input class="fld" id="rPhone" type="tel" inputmode="tel" value="${esc(reg.phone)}" placeholder="+7 900 000-00-00">
+    <label class="lb">Кто вы по этому участку</label>
+    <label class="chk"><input type="radio" name="kind" value="Собственник" ${reg.kind==='Собственник'?'checked':''}> Собственник</label>
+    <label class="chk"><input type="radio" name="kind" value="Арендатор" ${reg.kind==='Арендатор'?'checked':''}> Арендатор</label>
+    <label class="chk"><input type="checkbox" id="rOk" ${reg.consent?'checked':''}> Согласен на обработку персональных данных</label>
+    <button class="btn" onclick="regNext()">Получить код по СМС</button>
+  </div>
+  <p class="muted">Пока заявка не подтверждена, информация СНТ вам недоступна.</p>`;
+  if(regStep===2)return `${F()}<h2>Код из СМС</h2><div class="card">
+    <label class="lb" for="rCode">Введите код</label>
+    <input class="fld" id="rCode" type="text" inputmode="numeric" maxlength="4" placeholder="1234">
+    <button class="btn" onclick="regCode()">Подтвердить телефон</button>
+    <button class="btn alt" onclick="regAgain()">Назад</button></div>`;
+  const r=S.requests.find(x=>x.id===reg.id);
+  const st=r.status==='pending'?['wait','Ожидает подтверждения администратором']:r.status==='approved'?['','Доступ подтверждён']:['no','Заявка отклонена'];
+  return `${F()}<h2>Статус заявки</h2><div class="card">
+    <div class="kv"><span>Участок</span><b>${r.plot}</b></div>
+    <div class="kv"><span>Телефон</span><b>${esc(r.phone)}</b></div>
+    <div class="kv"><span>Роль</span><b>${r.kind}</b></div>
+    <div class="kv"><span>Статус</span><span class="chip ${st[0]}">${st[1]}</span></div>
+    <p class="muted">${r.status==='pending'?'Перейдите на вкладку «Председатель» и подтвердите заявку, затем вернитесь сюда.':r.status==='approved'?'Теперь открывается кабинет по вашей роли (смотрите вкладки «Собственник» и «Пользователь участка»).':'Администратор может объяснить причину по телефону правления.'}</p>
+    <button class="btn alt" onclick="render()">Обновить статус</button>
+    <button class="btn alt" onclick="regAgain()">Подать новую заявку</button></div>`;
+}
+
+/* ---------- 2. Председатель, администратор, согласования ---------- */
+function log(who,what){S.audit.unshift({t:'сегодня',who,what})}
+const FIELDS={name:'ФИО',phone:'Телефон',area:'Площадь участка, м²',member:'Член СНТ'};
+const CH_ST={pending:['wait','Ждёт согласия собственника'],approved:['done','Согласовано'],rejected:['no','Отклонено собственником']};
+function curVal(f){const p=S.plot;return f==='name'?p.owners[0].name:f==='phone'?p.ownerPhone:f==='area'?String(p.area):(p.owners[0].member?'Да':'Нет')}
+
+function requestsHtml(){
+  return S.requests.slice().reverse().map(r=>{
+    const chip=r.status==='pending'?'<span class="chip wait">Ожидает</span>':r.status==='approved'?'<span class="chip">Подтверждена</span>':'<span class="chip no">Отклонена</span>';
+    return `<div class="card"><div class="kv"><b>Участок ${r.plot}, ${r.kind}</b>${chip}</div>
+      <div class="muted">${esc(r.phone)}. Сверьте с реестром собственников.</div>
+      ${r.status==='pending'?`<button class="btn sm" onclick="decide(${r.id},'approved')">Подтвердить</button><button class="btn sm bad" onclick="decide(${r.id},'rejected')">Отклонить</button>`:''}</div>`}).join('');
+}
+function decide(id,st){const r=S.requests.find(x=>x.id===id);r.status=st;log('Председатель',(st==='approved'?'Подтвердил':'Отклонил')+' заявку участка '+r.plot+' ('+r.kind+')');flash=st==='approved'?'Заявка подтверждена.':'Заявка отклонена.';render()}
+
+function changesList(forOwner){
+  if(!S.changes.length)return '<p class="muted">Запросов пока нет.</p>';
+  return S.changes.map(c=>{const st=CH_ST[c.status];
+    return `<div class="card"><div class="kv"><b>${FIELDS[c.field]}</b><span class="chip ${st[0]}">${st[1]}</span></div>
+      <div class="kv"><span>Было</span><span>${esc(c.old)}</span></div>
+      <div class="kv"><span>Станет</span><b>${esc(c.val)}</b></div>
+      <div class="muted">Основание: ${esc(c.why)}. Запросил: ${esc(c.by)}, ${esc(c.date)}.</div>
+      ${forOwner&&c.status==='pending'?`<button class="btn sm" onclick="decideChange(${c.id},true)">Согласиться</button><button class="btn sm bad" onclick="decideChange(${c.id},false)">Отклонить</button>`:''}</div>`}).join('');
+}
+function dataView(by){
+  const p=S.plot;
+  return `<div class="card"><h3>Участок ${p.num}</h3>${Object.keys(FIELDS).map(f=>`<div class="kv"><span>${FIELDS[f]}</span><b>${esc(curVal(f))}</b></div>`).join('')}
+    <p class="muted">Напрямую менять данные собственника нельзя. Изменение вступит в силу только после его согласия.</p></div>
+    <div class="card"><h3>Запросить изменение</h3>
+      <label class="lb" for="cField">Что изменить</label>
+      <select class="fld" id="cField">${Object.keys(FIELDS).map(f=>`<option value="${f}">${FIELDS[f]}</option>`).join('')}</select>
+      <label class="lb" for="cNew">Новое значение</label><input class="fld" id="cNew" type="text">
+      <div class="muted">Для «Член СНТ» введите Да или Нет.</div>
+      <label class="lb" for="cWhy">Основание</label><input class="fld" id="cWhy" type="text" placeholder="например, выписка из ЕГРН">
+      <button class="btn" onclick="proposeChange('${by}')">Отправить собственнику на согласование</button></div>
+    <h3 style="margin:18px 0 8px">Запросы</h3>${changesList(false)}`;
+}
+function proposeChange(by){
+  const f=val('cField'),nv=val('cNew'),why=val('cWhy');
+  if(!nv||!why){flash='Укажите новое значение и основание.';return render()}
+  if(f==='area'&&!(Number(nv)>0)){flash='Площадь должна быть числом.';return render()}
+  if(f==='member'&&!/^(да|нет)$/i.test(nv)){flash='Для поля «Член СНТ» введите Да или Нет.';return render()}
+  if(f==='phone'&&nv.replace(/\D/g,'').length<10){flash='Введите телефон полностью.';return render()}
+  S.changes.unshift({id:S.nextCh++,by,field:f,old:curVal(f),val:nv,why,status:'pending',date:'сегодня'});
+  log(by,'Запросил изменение «'+FIELDS[f]+'» у собственника участка '+S.plot.num);
+  flash='Запрос отправлен собственнику. Данные изменятся только после его согласия.';render();
+}
+function applyChange(c){const p=S.plot;
+  if(c.field==='name')p.owners[0].name=c.val;
+  else if(c.field==='phone')p.ownerPhone=c.val;
+  else if(c.field==='area')p.area=Number(c.val);
+  else if(c.field==='member'){p.owners[0].member=/^да$/i.test(c.val);resetBallots()}}
+function decideChange(id,ok){
+  const c=S.changes.find(x=>x.id===id);c.status=ok?'approved':'rejected';if(ok)applyChange(c);
+  log('Собственник участка '+S.plot.num,(ok?'Согласовал':'Отклонил')+' изменение: '+FIELDS[c.field]+' (запросил: '+c.by+')');
+  flash=ok?'Изменение согласовано и применено.':'Изменение отклонено, данные остались прежними.';buildMap();render();
+}
+
+function setChairTab(t){chairTab=t;render()}
+function renderChair(){
+  const c=S.chair;
+  if(!c.active)return `<h2>Председатель</h2><div class="warn">Доступ председателя отключён администратором. Включить его может только администратор.</div>`;
+  const tabs=[['notif','🔔 Уведомления'+(notifUnread('ch')?' ('+notifUnread('ch')+')':'')],['req','Заявки'],['ap','Обращения'],['pos','Должности'],['data','Данные собственников'],['plots','Участки'],['ads','Реклама'],['read','Показания'],['polls','Опросы'],['talk','Общение'+(unreadFor('ch')?' ('+unreadFor('ch')+')':'')],['mod','Модерация чатов'],['prof','Профиль']];
+  let body='';
+  if(chairTab==='req')body=requestsHtml();
+  if(chairTab==='ap')body=adminAppeals();
+  if(chairTab==='notif')body=notifView();
+  if(chairTab==='pos')body=posView('Председатель');
+  if(chairTab==='talk')body=talkView();
+  if(chairTab==='mod')body=modView();
+  if(chairTab==='prof')body=profileView();
+  if(chairTab==='data')body=dataView('Председатель');
+  if(chairTab==='plots')body=plotsAdminView('Председатель');
+  if(chairTab==='ads')body=adsAdminView('Председатель');
+  if(chairTab==='read')body=readingsAllView();
+  if(chairTab==='polls')body=pollsAdminView('Председатель');
+  return `${F()}<h2>Председатель</h2><p class="muted">${esc(c.name)}</p>${tabsHtml(tabs,chairTab,'setChairTab')}${body}`;
+}
+
+function setAdminTab(t){adminTab=t;render()}
+function setRule(r){S.rule=r;resetBallots();log('Администратор','Изменил правило подсчёта голосов');flash='Правило подсчёта голосов изменено. Бюллетени сброшены.';render()}
+function assignChair(){
+  const name=val('chName'),phone=val('chPhone');
+  if(!name||phone.replace(/\D/g,'').length<10){flash='Укажите имя и телефон полностью.';return render()}
+  S.chair={name,phone,active:true};{const pl=Number(val('chPlot')),ch=S.officers.find(o=>o.id==='ch');if(plotStreet(pl)&&!S.officers.some(o=>o.plot===pl&&o.id!=='ch'))ch.plot=pl;}buildMap();log('Администратор','Назначил председателя: '+name);
+  flash='Назначен новый председатель. Ему отправлено СМС с кодом входа.';render();
+}
+function toggleChair(){S.chair.active=!S.chair.active;log('Администратор',(S.chair.active?'Вернул':'Отключил')+' доступ председателя');flash=S.chair.active?'Доступ председателя включён.':'Доступ председателя отключён.';render()}
+function sysView(){
+  const c=S.chair;
+  return `<div class="card"><h3>Председатель</h3>
+    <div class="kv"><span>${esc(c.name)}</span><span class="chip ${c.active?'':'no'}">${c.active?'Активен':'Отключён'}</span></div>
+    <div class="muted">${esc(c.phone)}</div>
+    <button class="btn sm alt" onclick="toggleChair()">${c.active?'Отключить доступ':'Вернуть доступ'}</button></div>
+  <div class="card"><h3>Назначить другого председателя</h3>
+    <label class="lb" for="chName">Имя</label><input class="fld" id="chName" type="text">
+    <label class="lb" for="chPhone">Телефон</label><input class="fld" id="chPhone" type="tel" placeholder="+7 900 000-00-00">
+    <label class="lb" for="chPlot">Участок председателя</label><input class="fld" id="chPlot" type="number" min="1">
+    <p class="muted">Прежний аккаунт отключится. Сменить председателя в системе может только администратор.</p>
+    <button class="btn" onclick="assignChair()">Назначить</button></div>
+  <div class="card"><h3>Кто что может</h3>
+    <div class="vrow"><b>Администратор</b><br><span class="muted">Создаёт и меняет аккаунт председателя, задаёт правила голосования, смотрит журнал, делает резервные копии и исправляет технические ошибки. Личных обращений не видит. Данные собственников меняет только с их согласия.</span></div>
+    <div class="vrow"><b>Председатель</b><br><span class="muted">Подтверждает заявки на доступ, отвечает на обращения, скрывает нарушающие правила записи, запрашивает изменение данных собственников. Не меняет правила системы и аккаунт администратора.</span></div>
+    <div class="vrow"><b>Бухгалтер</b><br><span class="muted">Видит показания и взносы по всем участкам, отмечает показания проверенными или спорными, отмечает оплату взносов. Исправить показания может только их автор.</span></div>
+    <div class="vrow"><b>Электрик</b><br><span class="muted">Видит показания по всем участкам и повышенный расход, назначает проверку счётчика. Взносов не видит.</span></div>
+    <div class="vrow"><b>Собственник</b><br><span class="muted">Управляет своим участком и пользователями, согласует или отклоняет изменения своих данных.</span></div></div>
+  <div class="card"><h3>Резервная копия</h3><div class="kv"><span>Последняя</span><b>сегодня, 03:00</b></div></div>`;
+}
+function rulesView(){return `<div class="card"><h3>Сколько голосов у участка</h3>
+  <label class="chk"><input type="radio" name="rule" ${S.rule==='owners'?'checked':''} onchange="setRule('owners')"> Столько голосов, сколько собственников — членов СНТ</label>
+  <label class="chk"><input type="radio" name="rule" ${S.rule==='plot'?'checked':''} onchange="setRule('plot')"> Один голос на участок</label>
+  <p class="muted">Выберите по уставу СНТ. Если собственник передал право голоса, с участка всегда считается один голос. Это правило лучше согласовать с юристом.</p></div>`}
+function logView(){return `<div class="card"><h3>Журнал действий</h3>${S.audit.map(e=>`<div class="vrow"><b>${esc(e.who)}</b> <span class="muted">${esc(e.t)}</span><br>${esc(e.what)}</div>`).join('')}</div>`}
+function renderAdmin(){
+  const tabs=[['sys','Система'],['rules','Правила голосования'],['pos','Должности'],['chats','Чаты'],['data','Данные собственников'],['plots','Участки'],['ads','Реклама'],['polls','Опросы'],['log','Журнал']];
+  let body='';
+  if(adminTab==='sys')body=sysView();
+  if(adminTab==='rules')body=rulesView();
+  if(adminTab==='pos')body=posView('Администратор');
+  if(adminTab==='chats')body=chatAdminView('Администратор');
+  if(adminTab==='data')body=dataView('Администратор');
+  if(adminTab==='plots')body=plotsAdminView('Администратор');
+  if(adminTab==='ads')body=adsAdminView('Администратор');
+  if(adminTab==='polls')body=pollsAdminView('Администратор');
+  if(adminTab==='log')body=logView();
+  return `${F()}<h2>Администратор системы</h2>${tabsHtml(tabs,adminTab,'setAdminTab')}${body}`;
+}
+
+
+/* ---------- Должности: председатель, правление, старшие по улицам ---------- */
+function postLabel(o){return o.post==='chair'?'Председатель':o.post==='board'?'Член правления':o.post==='accountant'?'Бухгалтер':o.post==='electrician'?'Электрик':'Старший по '+streetDat(o.street)}
+function officerName(o){return o.id==='ch'?S.chair.name:o.id==='b17'?S.plot.owners[0].name:o.name}
+function officerOf(plot){return S.officers.find(o=>o.plot===plot)}
+function recipientLabel(id){const o=S.officers.find(x=>x.id===id);return o?postLabel(o)+': '+officerName(o):'Председатель'}
+function viewerOfficer(){
+  if(view==='owner')return officerOf(S.plot.num);
+  if(view==='acc')return S.officers.find(o=>o.id==='b3')||null;
+  if(view==='el')return S.officers.find(o=>o.id==='b44')||null;
+  return null;
+}
+function staffPost(id){const o=S.officers.find(x=>x.id===(id==='o1'?'b17':id));return o?o.post:null}
+function responder(){if(view==='chair')return 'Председатель';const o=viewerOfficer();return o?officerName(o)+', '+postLabel(o).toLowerCase():viewer().name}
+function askOfficer(id){profileOpen=null;apTo=id;view='owner';ownerTab='ap';apTab='mine';apOpen=true;render();show('cab')}
+const PR_ST={pending:['wait','Ждёт согласия собственника'],approved:['done','Согласовано'],rejected:['no','Отклонено собственником']};
+function postReqText(r){return r.action==='add'?'Назначить: '+r.name+', '+(r.post==='board'?'член правления':r.post==='accountant'?'бухгалтер':r.post==='electrician'?'электрик':'старший по '+streetDat(r.street))+', участок '+r.plot:'Снять с должности: '+r.name+' ('+r.postText+'), участок '+r.plot}
+function postReqList(forOwner){
+  const list=S.postReqs.filter(r=>!forOwner||r.plot===S.plot.num);
+  if(!list.length)return forOwner?'':'<p class="muted">Запросов по должностям пока нет.</p>';
+  return (forOwner?'<h3 style="margin:18px 0 8px">Должности</h3>':'')+list.map(r=>{const st=PR_ST[r.status];
+    return `<div class="card"><div class="kv"><b>${esc(postReqText(r))}</b><span class="chip ${st[0]}">${st[1]}</span></div>
+      <div class="muted">Запросил: ${esc(r.by)}. Должность появится на карте после согласия собственника.</div>
+      ${r.status==='pending'&&forOwner?`<button class="btn sm" onclick="decidePostReq(${r.id},true)">Согласиться</button><button class="btn sm bad" onclick="decidePostReq(${r.id},false)">Отклонить</button>`:''}
+      ${r.status==='pending'&&!forOwner&&r.plot!==S.plot.num?`<button class="btn sm alt" onclick="decidePostReq(${r.id},true)">Демо: собственник согласился</button><button class="btn sm alt" onclick="decidePostReq(${r.id},false)">Демо: отказался</button>`:''}</div>`}).join('');
+}
+function requestAssign(by){
+  const plot=Number(val('pPlot')),name=val('pName'),post=val('pPost'),street=val('pStreet'),duty=val('pDuty'),hours=val('pHours');
+  if(!plotStreet(plot)){flash='Такого участка нет.';return render()}
+  if(!name){flash='Введите ФИО.';return render()}
+  if(officerOf(plot)){flash='На этом участке уже есть должностное лицо.';return render()}
+  if(S.postReqs.some(r=>r.plot===plot&&r.status==='pending'&&r.action==='add')){flash='По этому участку уже есть запрос.';return render()}
+  S.postReqs.unshift({id:S.nextPr++,by,action:'add',plot,name,post,street,duty:duty||'Не указано',hours:hours||'Уточняйте у правления',status:'pending'});
+  log(by,'Предложил назначить: '+name+', участок '+plot);
+  flash='Запрос отправлен собственнику участка '+plot+'. Должность появится на карте после его согласия.';render();
+}
+function requestRemove(id,by){
+  const o=S.officers.find(x=>x.id===id);if(!o)return;
+  if(S.postReqs.some(r=>r.officerId===id&&r.status==='pending')){flash='Запрос уже отправлен.';return render()}
+  S.postReqs.unshift({id:S.nextPr++,by,action:'remove',officerId:id,plot:o.plot,name:officerName(o),postText:postLabel(o),status:'pending'});
+  log(by,'Предложил снять с должности: '+officerName(o));flash='Запрос отправлен собственнику участка '+o.plot+'.';render();
+}
+function decidePostReq(id,ok){
+  const r=S.postReqs.find(x=>x.id===id);r.status=ok?'approved':'rejected';
+  if(ok&&r.action==='add')S.officers.push({id:'o'+S.nextOff++,post:r.post,plot:r.plot,name:r.name,street:r.street,duty:r.duty,hours:r.hours,phone:''});
+  if(ok&&r.action==='remove')S.officers=S.officers.filter(o=>o.id!==r.officerId);
+  log('Собственник участка '+r.plot,(ok?'Согласился':'Отказался')+': '+postReqText(r));
+  flash=ok?'Согласовано. Карта обновлена.':'Отклонено. Карта не изменилась.';buildMap();render();
+}
+function saveOfficer(id){
+  const f=id==='ch'?['cDuty','cHours']:['myDuty','myHours'];
+  const duty=val(f[0]),hours=val(f[1]);
+  if(!duty||!hours){flash='Заполните ответственность и время приёма.';return render()}
+  const o=S.officers.find(x=>x.id===id);o.duty=duty;o.hours=hours;
+  log(officerName(o),'Обновил(а) информацию на карте');flash='Информация на карте обновлена.';buildMap();render();
+}
+function resign(){
+  const o=viewerOfficer();if(!o)return;
+  if(S.resignReqs.some(r=>r.officerId===o.id&&r.status==='pending')){flash='Заявка уже ждёт решения председателя.';return render()}
+  S.resignReqs.unshift({id:S.nextRs++,officerId:o.id,plot:o.plot,name:officerName(o),postText:postLabel(o),status:'pending'});
+  log(officerName(o),'Подал(а) заявку сложить полномочия: '+postLabel(o));
+  notify('ch','appeal','Заявка сложить полномочия: '+officerName(o)+' ('+postLabel(o)+')');
+  flash='Заявка отправлена председателю. Полномочия сохраняются до его решения.';render();
+}
+function myOfficerView(){
+  const o=viewerOfficer();if(!o)return '';
+  const pend=S.resignReqs.some(r=>r.officerId===o.id&&r.status==='pending');
+  return `<div class="card"><h3>${esc(postLabel(o))}</h3><p class="muted">Эта информация показывается жителям на карте участков. Менять её можете только вы.</p>
+    <label class="lb" for="myDuty">Ответственность</label><input class="fld" id="myDuty" type="text" value="${esc(o.duty)}">
+    <label class="lb" for="myHours">Приём</label><input class="fld" id="myHours" type="text" value="${esc(o.hours)}">
+    <button class="btn" onclick="saveOfficer('${o.id}')">Сохранить</button>
+    ${pend?'<div class="warn" style="margin-top:12px">Заявка сложить полномочия ждёт решения председателя. Полномочия сохраняются до его решения.</div>':'<button class="btn bad" onclick="resign()">Подать заявку сложить полномочия</button>'}</div>`;
+}
+function posView(by){
+  const list=S.officers.map(o=>`<div class="vrow"><div class="kv"><b>${esc(officerName(o))}</b><span class="chip ${o.post==='chair'?'wait':o.post==='senior'?'done':''}">${esc(postLabel(o))}</span></div>
+    <div class="muted">Участок ${o.plot}. ${esc(o.duty)}. Приём: ${esc(o.hours)}</div>
+    ${o.post!=='chair'?`<button class="btn sm bad" onclick="requestRemove('${o.id}','${by}')">Снять с должности</button>`:''}</div>`).join('');
+  const own=by==='Председатель'?(()=>{const c=S.officers.find(o=>o.id==='ch');return `<div class="card"><h3>Моя информация на карте</h3>
+    <label class="lb" for="cDuty">Ответственность</label><input class="fld" id="cDuty" type="text" value="${esc(c.duty)}">
+    <label class="lb" for="cHours">Приём</label><input class="fld" id="cHours" type="text" value="${esc(c.hours)}">
+    <button class="btn" onclick="saveOfficer('ch')">Сохранить</button></div>`})():'';
+  return `${own}${resignList(by==='Председатель')}<div class="card"><h3>Должностные лица</h3>${list}</div>
+    <div class="card"><h3>Назначить</h3>
+      <label class="lb" for="pPlot">Участок</label><input class="fld" id="pPlot" type="number" min="1">
+      <label class="lb" for="pName">ФИО</label><input class="fld" id="pName" type="text">
+      <label class="lb" for="pPost">Должность</label><select class="fld" id="pPost"><option value="board">Член правления</option><option value="senior">Старший по улице</option><option value="accountant">Бухгалтер</option><option value="electrician">Электрик</option></select>
+      <label class="lb" for="pStreet">Улица (для старшего)</label><select class="fld" id="pStreet">${S.streets.map(x=>`<option value="${x.q}-${x.s}">Квартал ${x.q}, ${x.s}-я улица</option>`).join('')}</select>
+      <label class="lb" for="pDuty">Ответственность</label><input class="fld" id="pDuty" type="text" placeholder="например, электрохозяйство">
+      <label class="lb" for="pHours">Приём</label><input class="fld" id="pHours" type="text" placeholder="например, Вт 18:00–19:00">
+      <p class="muted">Должность появится на карте только после согласия собственника участка.</p>
+      <button class="btn" onclick="requestAssign('${by}')">Отправить на согласование</button></div>
+    <h3 style="margin:18px 0 8px">Запросы</h3>${postReqList(false)}`;
+}
+
+
+/* ---------- Профили, личные сообщения и чаты ---------- */
+const MONTHS=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const AV_COLORS=['#2F6B45','#245F8F','#8A4F9E','#B5532B','#2D7F86','#7A6A1E'];
+function streetKeyOf(plot){const st=plotStreet(plot);return st?st.q+'-'+st.s:'1-1'}
+function streetNameOf(k){const [q,x]=k.split('-');return 'кв. '+q+', '+x+'-я улица'}
+function streetDat(k){const [q,x]=k.split('-');return x+'-й улице, кв. '+q}
+function cMsgs(k){return S.chats[k]||(S.chats[k]=[])}
+function cMute(k){return S.muted[k]||(S.muted[k]={})}
+function cMods(k){return S.chatMods[k]||(S.chatMods[k]=[])}
+function person(id){
+  let p=S.people.find(x=>x.id===id);
+  if(!p){const u=S.plot.users.find(x=>x.id===id);p={id,name:u?u.name:id,plot:S.plot.num,about:'',birth:'',birthVis:'hidden',avatar:null};S.people.push(p)}
+  return p;
+}
+function personName(id){
+  if(id==='adm')return 'Администратор';
+  if(id==='o1')return S.plot.owners[0].name;
+  if(id==='ch')return S.chair.name;
+  const u=S.plot.users.find(x=>x.id===id);if(u)return u.name;
+  const o=S.officers.find(x=>x.id===id);if(o&&o.name)return o.name;
+  return person(id).name||id;
+}
+function personPlot(id){
+  if(id==='adm')return '';
+  if(id==='o1'||S.plot.users.some(u=>u.id===id))return S.plot.num;
+  if(id==='ch')return S.officers.find(o=>o.id==='ch').plot;
+  return person(id).plot;
+}
+function personPost(id){if(id==='adm')return 'Администратор';const o=S.officers.find(x=>x.id===(id==='o1'?'b17':id));return o?postLabel(o):''}
+function avatarInner(id,cls){
+  const p=person(id),n=personName(id);
+  if(p.avatar)return `<img class="av ${cls||''}" src="${p.avatar}" alt="${esc(n)}">`;
+  const h=[...id].reduce((a,c)=>a+c.charCodeAt(0),0)%AV_COLORS.length;
+  const ini=n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  return `<span class="av ${cls||''}" style="background:${AV_COLORS[h]}" role="img" aria-label="${esc(n)}">${esc(ini)}</span>`;
+}
+function avatarHtml(id,cls,noLink){
+  const inner=avatarInner(id,cls);
+  if(noLink||view==='reg')return inner;
+  return `<button class="avbtn" onclick="openProfile('${id}')" aria-label="Открыть анкету: ${esc(personName(id))}">${inner}</button>`;
+}
+function nameLink(id){return view==='reg'?esc(personName(id)):`<button class="nm" onclick="openProfile('${id}')">${esc(personName(id))}</button>`}
+function hasPerson(id){return S.people.some(p=>p.id===id)||S.plot.users.some(u=>u.id===id)}
+function birthPublic(p){
+  if(!p.birth||p.birthVis==='hidden')return '';
+  const [y,m,d]=p.birth.split('-').map(Number),dm=d+' '+MONTHS[m-1];
+  return p.birthVis==='full'?dm+' '+y+' г.':dm;
+}
+function directory(){
+  S.officers.forEach(o=>{const pid=o.id==='b17'?'o1':o.id;const p=person(pid);if(!p.name&&o.name)p.name=o.name});
+  S.plot.users.forEach(u=>person(u.id));
+  return S.people.filter(p=>{if(p.id==='adm')return false;const u=S.plot.users.find(x=>x.id===p.id);return !(u&&!u.active)});
+}
+
+/* профиль */
+function setAvatar(){
+  const f=$('avFile')&&$('avFile').files[0];
+  if(!f){flash='Выберите изображение.';return render()}
+  if(!f.type.startsWith('image/')){flash='Можно загрузить только изображение.';return render()}
+  if(f.size>5*1024*1024){flash='Фото больше 5 МБ.';return render()}
+  person(viewer().id).avatar=URL.createObjectURL(f);flash='Фото профиля установлено.';render();
+}
+function clearAvatar(){person(viewer().id).avatar=null;flash='Фото удалено.';render()}
+function saveProfile(){
+  const p=person(viewer().id),about=val('prAbout').slice(0,300),birth=val('prBirth'),vis=val('prVis');
+  if(birth){
+    const y=Number(birth.slice(0,4));
+    if(y<1900||birth>new Date().toISOString().slice(0,10)){flash='Проверьте дату рождения.';return render()}
+  }
+  if(vis!=='hidden'&&!birth){flash='Укажите дату рождения или выберите «скрыта».';return render()}
+  p.about=about;p.birth=birth;p.birthVis=vis;flash='Профиль сохранён.';render();
+}
+function profileView(){
+  const me=viewer(),p=person(me.id),post=personPost(me.id);
+  return `${''}<div class="card"><div class="row2">${avatarHtml(me.id,'lg',true)}<div><h3>${esc(me.name)}</h3><div class="muted">Участок ${personPlot(me.id)}${post?' · '+esc(post):''}</div></div></div>
+    <label class="lb" for="avFile">Фото профиля</label>
+    <input class="fld" id="avFile" type="file" accept="image/*">
+    <button class="btn sm" onclick="setAvatar()">Установить фото</button>${p.avatar?'<button class="btn sm bad" onclick="clearAvatar()">Удалить фото</button>':''}
+    <p class="muted">Только изображения до 5 МБ. На сервере фото обрезается до квадрата и сжимается, метаданные удаляются.</p></div>
+  <div class="card"><h3>О себе</h3>
+    <label class="lb" for="prAbout">Коротко о себе (до 300 символов)</label>
+    <textarea class="fld" id="prAbout" rows="4" maxlength="300">${esc(p.about)}</textarea>
+    <label class="lb" for="prBirth">Дата рождения</label>
+    <input class="fld" id="prBirth" type="date" value="${esc(p.birth)}">
+    <label class="lb" for="prVis">Кто видит дату рождения</label>
+    <select class="fld" id="prVis">${[['hidden','Никто, дата скрыта'],['dm','Все жители видят день и месяц'],['full','Все жители видят полностью']].map(([k,l])=>`<option value="${k}" ${p.birthVis===k?'selected':''}>${l}</option>`).join('')}</select>
+    <p class="muted">Сейчас другие видят: ${esc(birthPublic(p)||'ничего')}. Профиль видят только жители с доступом к кабинету.</p>
+    <button class="btn" onclick="saveProfile()">Сохранить</button></div>`;
+}
+
+/* общение */
+function dmKey(a,b){return [a,b].sort().join('|')}
+function unreadFor(id){
+  let n=0;
+  for(const k in S.dms){const ids=k.split('|');if(!ids.includes(id))continue;S.dms[k].forEach(m=>{if(m.from!==id&&!m.read)n++})}
+  return n;
+}
+function chatTitle(k){return k==='all'?'Общий чат СНТ':'Чат: '+streetNameOf(k)}
+function canOpenChat(k){const me=viewer();return k==='all'||canModerate(me.id,k)||(me.plot!=null&&k===streetKeyOf(me.plot))}
+function setTalkTab(k){talkTab=k;chatOpen=null;dmOpen=null;render()}
+function openChatKey(k){if(!canOpenChat(k)){flash='Этот чат вам недоступен.';return render()}chatOpen=k;render()}
+function closeThread(){chatOpen=null;dmOpen=null;render()}
+function openDmWith(id){talkTab='dm';dmOpen=id;chatOpen=null;render()}
+function setPQ(v){peopleQ=v;render()}
+function talkView(){
+  const me=viewer(),un=unreadFor(me.id);
+  const tabs=[['chats','Чаты'],['dm','Личные'+(un?' ('+un+')':'')],['people','Жители']];
+  let body='';
+  if(talkTab==='chats')body=chatOpen?chatThread(chatOpen):chatList();
+  if(talkTab==='dm')body=dmOpen?dmThread(dmOpen):dmList();
+  if(talkTab==='people')body=peopleList();
+  return `<h3 style="margin-bottom:6px">Общение</h3>${tabsHtml(tabs,talkTab,'setTalkTab')}${body}`;
+}
+function chatList(){
+  const me=viewer(),top=isTop(me.id);
+  const keys=['all'];
+  if(me.plot!=null){const own=streetKeyOf(me.plot);if(!keys.includes(own))keys.push(own)}
+  Object.keys(S.chats).forEach(k=>{if(!keys.includes(k)&&canModerate(me.id,k))keys.push(k)});
+  if(!top)S.streets.forEach(st=>{const k=st.q+'-'+st.s;if(!keys.includes(k)&&canModerate(me.id,k))keys.push(k)});
+  const rows=keys.map(k=>{
+    const last=cMsgs(k).filter(m=>!m.hidden).slice(-1)[0];
+    return `<div class="card"><div class="kv"><b>${esc(chatTitle(k))}</b>${canModerate(me.id,k)?'<span class="chip done">модератор</span>':''}</div>
+      ${last?`<div class="muted">${esc(personName(last.from))}: ${esc(last.text.slice(0,70))}</div>`:''}
+      <button class="btn sm" onclick="openChatKey('${k}')">Открыть</button></div>`}).join('');
+  const picker=top?`<div class="card"><h3>Открыть чат любой улицы</h3><select class="fld" id="openChatSel">${S.streets.map(st=>`<option value="${st.q}-${st.s}">Квартал ${st.q}, ${st.s}-я улица</option>`).join('')}</select><button class="btn sm" onclick="openChatKey(val('openChatSel'))">Открыть</button></div>`:'';
+  return rows+picker+'<p class="muted">Чаты других улиц видят только их жители и модераторы.</p>';
+}
+function chatThread(k,home){
+  const me=viewer(),isMod=canModerate(me.id,k),inp=home?'msgTextHome':'msgText';
+  const msgs=cMsgs(k).map(m=>{
+    const post=personPost(m.from),hid=m.hidden&&!isMod;
+    const ctl=(isMod?`<br><button class="lnk" onclick="hideMsg('${k}',${m.id})">${m.hidden?'Показать':'Скрыть'}</button>`:'')+
+      (isMod&&m.from!==me.id?` <button class="lnk" onclick="muteUser('${k}','${m.from}')">${cMute(k)[m.from]?'Вернуть право писать':'Запретить писать'}</button>`:'')+
+      (!isMod&&m.from!==me.id&&!m.hidden?`<br><button class="lnk" onclick="reportMsg('${k}',${m.id})">Пожаловаться</button>`:'');
+    return `<div class="msg ${m.hidden?'hid':''}">${avatarHtml(m.from,'sm')}<div class="b"><span class="who">${nameLink(m.from)}</span> ${post?`<span class="chip">${esc(post)}</span>`:''} <span class="muted">${esc(m.t)}</span><br>${hid?'<i class="muted">Сообщение скрыто модератором</i>':(m.hidden?'<i class="muted">(скрыто) </i>':'')+esc(m.text)}${ctl}</div></div>`}).join('');
+  const muted=cMute(k)[me.id],appointed=cMods(k).includes(me.id);
+  return `${home?'':'<button class="btn sm alt" style="margin-top:0" onclick="closeThread()">← Все чаты</button>'}
+    <div class="card"><h3>${esc(chatTitle(k))} ${isMod?'<span class="chip done">вы модератор</span>':''}</h3>
+    <p class="muted">Правила: уважайте соседей, без рекламы и оскорблений. Модерируют: ${k==='all'?'председатель, администратор, члены правления, старшие по улицам и назначенные модераторы':'старший по улице, председатель, администратор и назначенные модераторы'}.</p>
+    ${appointed?`<button class="btn sm alt" style="margin-top:0" onclick="resignMod('${k}')">Отказаться от роли модератора</button>`:''}
+    ${msgs||'<p class="muted">Сообщений пока нет.</p>'}
+    ${muted?'<div class="warn">Вам временно запрещено писать в этом чате.</div>':`<label class="lb" for="${inp}">Сообщение</label><textarea class="fld" id="${inp}" rows="2" maxlength="500"></textarea><button class="btn" onclick="postChat('${k}',${home?'true':'false'})">Отправить</button>`}</div>`;
+}
+function postChat(k,home){
+  const me=viewer(),t=val(home?'msgTextHome':'msgText');
+  if(cMute(k)[me.id]){flash='Вам временно запрещено писать в этом чате.';return render()}
+  if(!t){flash='Напишите сообщение.';return render()}
+  cMsgs(k).push({id:S.nextMsg++,from:me.id,text:t,t:'сейчас',hidden:false,reports:[]});render();
+}
+function reportMsg(k,id){
+  const m=cMsgs(k).find(x=>x.id===id),me=viewer();
+  if(!m.reports.includes(me.id))m.reports.push(me.id);
+  flash='Жалоба отправлена модераторам.';render();
+}
+function dmList(){
+  const me=viewer(),keys=Object.keys(S.dms).filter(k=>k.split('|').includes(me.id));
+  const rows=keys.map(k=>{
+    const other=k.split('|').find(x=>x!==me.id),msgs=S.dms[k],last=msgs[msgs.length-1],un=msgs.filter(m=>m.from!==me.id&&!m.read).length;
+    return `<div class="card"><div class="row2">${avatarHtml(other)}<div style="flex:1;min-width:0"><b>${nameLink(other)}</b>${un?'<span class="dot" aria-label="есть непрочитанные"></span>':''}<div class="muted">${esc(last.text.slice(0,70))}</div></div></div>
+      <button class="btn sm" onclick="openDmWith('${other}')">Открыть</button></div>`}).join('');
+  return (rows||'<p class="muted">Личных переписок пока нет.</p>')+`<button class="btn" onclick="setTalkTab('people')">＋ Новое сообщение</button><p class="muted">Личные сообщения видят только собеседники. Председатель и администратор их не читают.</p>`;
+}
+function dmThread(other){
+  const me=viewer(),k=dmKey(me.id,other);
+  const msgs=S.dms[k]||[];
+  msgs.forEach(m=>{if(m.from!==me.id)m.read=true});
+  S.notifs.forEach(n=>{if(n.to===me.id&&n.kind==='dm'&&n.link&&n.link.dm===other)n.read=true});
+  const iBlocked=(S.blocks[me.id]||[]).includes(other);
+  const list=msgs.map(m=>`<div class="msg ${m.from===me.id?'mine':''}">${avatarHtml(m.from,'sm')}<div class="b"><span class="who">${m.from===me.id?'Вы':nameLink(m.from)}</span> <span class="muted">${esc(m.t)}</span><br>${esc(m.text)}</div></div>`).join('');
+  return `<button class="btn sm alt" style="margin-top:0" onclick="closeThread()">← Все переписки</button>
+    <div class="card"><div class="row2">${avatarHtml(other)}<div><h3>${nameLink(other)}</h3><div class="muted">Участок ${personPlot(other)}</div></div></div>
+    ${list||'<p class="muted">Напишите первое сообщение.</p>'}
+    ${iBlocked?'<div class="warn">Вы заблокировали этого пользователя.</div>':`<label class="lb" for="msgText">Сообщение</label><textarea class="fld" id="msgText" rows="2" maxlength="500"></textarea><button class="btn" onclick="sendDm('${other}')">Отправить</button>`}
+    <button class="btn sm alt" onclick="toggleBlock('${other}')">${iBlocked?'Разблокировать':'Заблокировать'}</button>
+    <button class="btn sm alt" onclick="demoReply('${other}')">Демо: ответ собеседника</button></div>`;
+}
+function sendDm(other){
+  const me=viewer(),t=val('msgText');
+  if(!t){flash='Напишите сообщение.';return render()}
+  if((S.blocks[me.id]||[]).includes(other)){flash='Вы заблокировали этого пользователя.';return render()}
+  if((S.blocks[other]||[]).includes(me.id)){flash='Сообщение не доставлено.';return render()}
+  const k=dmKey(me.id,other);(S.dms[k]=S.dms[k]||[]).push({from:me.id,text:t,t:'сейчас',read:false});
+  notify(other,'dm','Новое сообщение от '+me.name,{dm:me.id});
+  render();
+}
+function toggleBlock(other){
+  const me=viewer(),b=S.blocks[me.id]=S.blocks[me.id]||[],i=b.indexOf(other);
+  if(i>=0)b.splice(i,1);else b.push(other);
+  flash=i>=0?'Пользователь разблокирован.':'Пользователь заблокирован. Он не сможет вам писать.';render();
+}
+function demoReply(other){
+  const me=viewer(),k=dmKey(me.id,other);
+  if((S.blocks[me.id]||[]).includes(other)){flash='Вы заблокировали этого пользователя.';return render()}
+  (S.dms[k]=S.dms[k]||[]).push({from:other,text:'Спасибо, получил(а) ваше сообщение.',t:'сейчас',read:false});
+  notify(me.id,'dm','Новое сообщение от '+personName(other),{dm:other});render();
+}
+function peopleList(){
+  const me=viewer(),q=peopleQ.trim().toLowerCase();
+  const list=directory().filter(p=>p.id!==me.id&&(!q||personName(p.id).toLowerCase().includes(q)));
+  return `<label class="lb" for="pq">Поиск по имени</label><input class="fld" id="pq" type="text" value="${esc(peopleQ)}" onchange="setPQ(this.value)" style="margin-bottom:12px">`+
+  (list.map(p=>{
+    const post=personPost(p.id),bd=birthPublic(p);
+    return `<div class="card"><div class="row2">${avatarHtml(p.id)}<div style="min-width:0"><b>${nameLink(p.id)}</b> ${post?`<span class="chip">${esc(post)}</span>`:''}<div class="muted">Участок ${personPlot(p.id)}, ${esc(streetNameOf(streetKeyOf(personPlot(p.id))))}</div></div></div>
+      ${p.about?`<p style="margin:8px 0">${esc(p.about.slice(0,140))}</p>`:''}${bd?`<div class="muted">🎂 ${esc(bd)}</div>`:''}
+      ${S.muted[p.id]?'':''}<button class="btn sm" onclick="openDmWith('${p.id}')">Написать</button></div>`}).join('')||'<p class="muted">Никого не найдено.</p>');
+}
+
+/* модерация чатов */
+function isTop(id){return id==='ch'||id==='adm'}
+function builtinMods(k){
+  const ids=['adm','ch'];
+  S.officers.forEach(o=>{
+    const pid=o.id==='b17'?'o1':o.id;
+    if(o.post==='board'&&k==='all')ids.push(pid);
+    if(o.post==='senior'&&(k==='all'||streetKeyOf(o.plot)===k))ids.push(pid);
+  });
+  return ids.filter((x,i)=>ids.indexOf(x)===i);
+}
+function canModerate(id,k){return builtinMods(k).includes(id)||cMods(k).includes(id)}
+function hideMsg(k,id){
+  const me=viewer();if(!canModerate(me.id,k))return;
+  const m=cMsgs(k).find(x=>x.id===id);m.hidden=!m.hidden;
+  log(personName(me.id),(m.hidden?'Скрыл(а)':'Показал(а)')+' сообщение в чате «'+chatTitle(k)+'»');render();
+}
+function muteUser(k,id){
+  const me=viewer();if(!canModerate(me.id,k))return;
+  if(isTop(id)){flash='Нельзя ограничить председателя или администратора.';return render()}
+  if(canModerate(id,k)&&!isTop(me.id)){flash='Нельзя ограничить другого модератора.';return render()}
+  const mm=cMute(k),on=mm[id]=!mm[id];
+  log(personName(me.id),(on?'Ограничил(а)':'Вернул(а)')+' право писать в чате «'+chatTitle(k)+'»: '+personName(id));
+  flash=on?'Участник больше не может писать в этом чате.':'Право писать возвращено.';render();
+}
+function addMod(by){
+  const me=viewer();if(!isTop(me.id))return;
+  const k=modChat,id=val('mcPerson');
+  if(!id){flash='Выберите жителя.';return render()}
+  if(canModerate(id,k)){flash='Этот человек уже модерирует этот чат.';return render()}
+  cMods(k).push(id);
+  notify(id,'mod','Вас назначили модератором: '+chatTitle(k),{chat:k});
+  log(by,'Назначил(а) модератором чата «'+chatTitle(k)+'»: '+personName(id));
+  flash='Модератор назначен. Ему отправлено уведомление.';render();
+}
+function removeMod(k,id){
+  const me=viewer();if(!isTop(me.id))return;
+  S.chatMods[k]=cMods(k).filter(x=>x!==id);
+  log(personName(me.id),'Снял(а) модератора чата «'+chatTitle(k)+'»: '+personName(id));
+  flash='Модератор снят.';render();
+}
+function resignMod(k){
+  const me=viewer();S.chatMods[k]=cMods(k).filter(x=>x!==me.id);
+  log(personName(me.id),'Отказался(ась) от роли модератора чата «'+chatTitle(k)+'»');
+  flash='Вы больше не модератор этого чата.';render();
+}
+function setModChat(k){modChat=k;render()}
+function chatAdminView(by){
+  const k=modChat;
+  const opts=['all'].concat(S.streets.map(st=>st.q+'-'+st.s)).map(x=>`<option value="${x}" ${x===k?'selected':''}>${esc(chatTitle(x))}</option>`).join('');
+  const rows=cMsgs(k).map(m=>`<div class="vrow"><div class="kv"><b>${nameLink(m.from)}</b><span class="muted">${esc(m.t)}${m.reports.length?' · жалоб: '+m.reports.length:''}</span></div>
+    <div>${m.hidden?'<i class="muted">(скрыто) </i>':''}${esc(m.text)}</div>
+    <button class="btn sm alt" onclick="hideMsg('${k}',${m.id})">${m.hidden?'Показать':'Скрыть'}</button>
+    ${m.from!==viewer().id?`<button class="btn sm bad" onclick="muteUser('${k}','${m.from}')">${cMute(k)[m.from]?'Вернуть право писать':'Запретить писать'}</button>`:''}</div>`).join('');
+  return `<div class="card"><h3>Выберите чат</h3><select class="fld" id="mcSel" onchange="setModChat(this.value)">${opts}</select></div>
+    <div class="card"><h3>Кто модерирует: ${esc(chatTitle(k))}</h3>
+      ${builtinMods(k).map(id=>`<div class="kv"><span>${esc(personName(id))}</span><span class="chip">${esc(personPost(id))}</span></div>`).join('')}
+      ${cMods(k).map(id=>`<div class="kv"><span>${esc(personName(id))}</span><span><span class="chip done">назначен</span> <button class="btn sm bad" onclick="removeMod('${k}','${id}')">Снять</button></span></div>`).join('')}
+      <p class="muted">Администратор и председатель модерируют все чаты. Члены правления модерируют общий чат, старшие по улицам: общий и чат своей улицы.</p></div>
+    <div class="card"><h3>Назначить модератора этого чата</h3>
+      <label class="lb" for="mcPerson">Житель</label><select class="fld" id="mcPerson">${directory().map(p=>`<option value="${p.id}">${esc(personName(p.id))}, участок ${personPlot(p.id)}</option>`).join('')}</select>
+      <button class="btn" onclick="addMod('${by}')">Назначить</button></div>
+    <h3 style="margin:18px 0 8px">Сообщения</h3><div class="card">${rows||'<p class="muted">Сообщений нет.</p>'}</div>`;
+}
+function modView(){return chatAdminView('Председатель')}
+
+/* главная: общий чат */
+function renderHomeChat(){
+  const el=document.getElementById('homeChat');if(!el)return;
+  if(view==='reg'){el.innerHTML='<div class="card"><p>Общий чат доступен жителям после входа в личный кабинет.</p><button class="btn" onclick="show(\'cab\')">Войти</button></div>';return}
+  const me=viewer(),u=view==='user'?S.plot.users.find(x=>x.id===me.id):null;
+  if(u&&(!u.active||!u.perms.chat)){el.innerHTML='<div class="card"><p class="muted">Доступ к чатам отключён собственником участка.</p></div>';return}
+  el.innerHTML=chatThread('all',true);
+}
+
+/* уведомления */
+function apAddressee(a){return a.to==='b17'?'o1':(a.to||'ch')}
+function notify(to,kind,text,link){
+  const pr=S.notifPrefs[to]||{};
+  if(pr[kind]===false)return;
+  const u=S.plot.users.find(x=>x.id===to);if(u&&!u.perms.notify)return;
+  S.notifs.unshift({id:S.nextNt++,to,kind,text,t:'сейчас',read:false,link:link||null});
+}
+function notifUnread(id){return S.notifs.filter(n=>n.to===id&&!n.read).length}
+function togglePref(k){const me=viewer(),pr=S.notifPrefs[me.id]=S.notifPrefs[me.id]||{};pr[k]=pr[k]===false;render()}
+function readAllNotifs(){const me=viewer();S.notifs.forEach(n=>{if(n.to===me.id)n.read=true});flash='Все уведомления прочитаны.';render()}
+function demoNotif(){
+  const me=viewer(),k=dmKey(me.id,'r5');
+  (S.dms[k]=S.dms[k]||[]).push({from:'r5',text:'Добрый день! Вы завтра будете на участке?',t:'сейчас',read:false});
+  notify(me.id,'dm','Новое сообщение от '+personName('r5'),{dm:'r5'});render();
+}
+function goTab(k){if(view==='owner')ownerTab=k;else if(view==='user')userTab=k;else if(view==='chair')chairTab=k;else if(view==='acc'||view==='el')staffTab=k}
+function openNotif(id){
+  const n=S.notifs.find(x=>x.id===id);n.read=true;const l=n.link||{};
+  if(l.dm){goTab('talk');talkTab='dm';dmOpen=l.dm;chatOpen=null}
+  else if(l.chat){goTab('talk');talkTab='chats';chatOpen=l.chat;dmOpen=null}
+  else if(l.appeal){
+    const a=S.appeals.find(x=>x.id===l.appeal);goTab('ap');apOpen=false;
+    if(view==='chair'&&a)admAp=a.kind;
+    apTab=!a?'mine':a.kind==='public'?'public':a.kind==='problem'?'problems':(viewerOfficer()&&a.to===viewerOfficer().id&&a.authorId!==viewer().id?'inbox':'mine');
+  }
+  render();
+}
+function notifView(){
+  const me=viewer(),list=S.notifs.filter(n=>n.to===me.id),pr=S.notifPrefs[me.id]||{};
+  return `<div class="card"><h3>Какие уведомления получать</h3>
+    ${[['dm','Новые личные сообщения'],['appeal','Ответы и изменения по обращениям'],['mod','Назначения модератором'],['ad','Статусы заявок на рекламу'],['meter','Показания и взносы']].map(([k,l])=>`<label class="chk"><input type="checkbox" ${pr[k]!==false?'checked':''} onchange="togglePref('${k}')"> ${l}</label>`).join('')}
+    <p class="muted">В реальной версии важные уведомления приходят ещё и по СМС или в приложение. Счётчик непрочитанных виден на кнопке «Личный кабинет».</p></div>
+    <button class="btn sm" style="margin-top:0" onclick="readAllNotifs()">Отметить все прочитанными</button><button class="btn sm alt" style="margin-top:0" onclick="demoNotif()">Демо: сообщение от соседа</button>
+    ${list.length?list.map(n=>`<div class="card"><div class="kv"><b>${n.read?'':'● '}${esc(n.text)}</b></div><div class="muted">${esc(n.t)}</div><button class="btn sm ${n.read?'alt':''}" onclick="openNotif(${n.id})">Открыть</button></div>`).join(''):'<p class="muted">Уведомлений пока нет.</p>'}`;
+}
+
+
+/* ---------- Отставка, проживание, участки, реклама ---------- */
+function decideResign(id,ok){
+  if(view!=='chair')return;
+  const r=S.resignReqs.find(x=>x.id===id);r.status=ok?'approved':'rejected';
+  if(ok)S.officers=S.officers.filter(o=>o.id!==r.officerId);
+  const pid=r.officerId==='b17'?'o1':r.officerId;
+  notify(pid,'appeal',ok?'Председатель одобрил: вы сложили полномочия ('+r.postText+')':'Председатель отклонил вашу заявку сложить полномочия');
+  log('Председатель',(ok?'Одобрил':'Отклонил')+' заявку сложить полномочия: '+r.name);
+  flash=ok?'Полномочия сняты. Карта обновлена.':'Заявка отклонена.';render();
+}
+function resignList(canDecide){
+  if(!S.resignReqs.length)return '';
+  return '<div class="card"><h3>Заявки сложить полномочия</h3>'+S.resignReqs.map(r=>{
+    const chip=r.status==='pending'?'<span class="chip wait">На рассмотрении</span>':r.status==='approved'?'<span class="chip done">Одобрена</span>':'<span class="chip no">Отклонена</span>';
+    return `<div class="vrow"><div class="kv"><b>${esc(r.name)}</b>${chip}</div><div class="muted">${esc(r.postText)}, участок ${r.plot}</div>
+      ${r.status==='pending'?(canDecide?`<button class="btn sm" onclick="decideResign(${r.id},true)">Одобрить</button><button class="btn sm bad" onclick="decideResign(${r.id},false)">Отклонить</button>`:'<div class="muted">Решение принимает председатель.</div>'):''}</div>`}).join('')+'</div>';
+}
+
+/* проживание */
+function residenceCard(){
+  const r=plotInfo(S.plot.num).res;
+  return `<div class="card"><h3>Проживание на участке</h3>
+    <select class="fld" id="myRes" aria-label="Проживание">${Object.keys(RES).map(k=>`<option value="${k}" ${r===k?'selected':''}>${RES[k][0]}</option>`).join('')}</select>
+    <p class="muted">Эту отметку видят председатель и администратор. Жителям она показывается, только если правление включило показ.</p>
+    <button class="btn" onclick="saveMyRes()">Сохранить</button></div>`;
+}
+function saveMyRes(){
+  plotInfo(S.plot.num).res=val('myRes');
+  log(S.plot.owners[0].name,'Указал(а) проживание на участке '+S.plot.num+': '+RES[val('myRes')][0]);
+  flash='Отметка проживания сохранена.';render();
+}
+function toggleShowRes(by){
+  if(!isTop(viewer().id))return;
+  S.showRes=!S.showRes;log(by,S.showRes?'Включил(а) показ отметок проживания жителям':'Скрыл(а) отметки проживания от жителей');
+  flash=S.showRes?'Отметки проживания теперь видят все жители.':'Отметки проживания скрыты от жителей.';render();
+}
+function addPlot(by){
+  if(!isTop(viewer().id))return;
+  const n=Number(val('apNum')),key=val('apStreet'),area=Number(val('apArea')),cad=val('apCad');
+  if(!Number.isInteger(n)||n<1){flash='Укажите номер участка (целое число).';return render()}
+  if(plotStreet(n)){flash='Участок с таким номером уже есть.';return render()}
+  const [q,x]=key.split('-').map(Number),st=S.streets.find(v=>v.q===q&&v.s===x);
+  if(!st){flash='Выберите улицу.';return render()}
+  st.plots.push(n);st.plots.sort((u,v)=>u-v);
+  S.plotInfo[n]={area:area>0?area:600,cad:cad||'не указан',res:'unknown'};
+  log(by,'Добавил(а) участок '+n+' ('+streetNameOf(key)+')');
+  mapQ=q;mapS=x;flash='Участок добавлен. Всего участков: '+totalPlots()+'.';render();
+}
+function requestRes(by){
+  if(!isTop(viewer().id))return;
+  const n=Number(val('rsPlot')),v=val('rsVal');
+  if(!plotStreet(n)){flash='Такого участка нет.';return render()}
+  if(S.resReqs.some(r=>r.plot===n&&r.status==='pending')){flash='По этому участку уже есть запрос.';return render()}
+  S.resReqs.unshift({id:S.nextRr++,by,plot:n,value:v,status:'pending'});
+  log(by,'Запросил(а) отметку проживания участка '+n+': '+RES[v][0]);
+  if(n===S.plot.num)notify('o1','appeal','Запрос на изменение отметки проживания участка '+n+': '+RES[v][0]);
+  flash='Запрос отправлен собственнику. Отметка изменится только после его согласия.';render();
+}
+function decideResReq(id,ok){
+  const r=S.resReqs.find(x=>x.id===id);r.status=ok?'approved':'rejected';
+  if(ok)plotInfo(r.plot).res=r.value;
+  log('Собственник участка '+r.plot,(ok?'Согласился':'Отказался')+': отметка проживания «'+RES[r.value][0]+'»');
+  flash=ok?'Согласовано. Отметка обновлена.':'Отклонено. Отметка не изменилась.';render();
+}
+function resReqList(forOwner){
+  const list=S.resReqs.filter(r=>!forOwner||r.plot===S.plot.num);
+  if(!list.length)return forOwner?'':'<p class="muted">Запросов пока нет.</p>';
+  return (forOwner?'<h3 style="margin:18px 0 8px">Проживание</h3>':'')+list.map(r=>{
+    const st=PR_ST[r.status];
+    return `<div class="card"><div class="kv"><b>Участок ${r.plot}: ${esc(RES[r.value][0])}</b><span class="chip ${st[0]}">${st[1]}</span></div>
+      <div class="muted">Запросил: ${esc(r.by)}. Отметка изменится после согласия собственника.</div>
+      ${r.status==='pending'&&forOwner?`<button class="btn sm" onclick="decideResReq(${r.id},true)">Согласиться</button><button class="btn sm bad" onclick="decideResReq(${r.id},false)">Отклонить</button>`:''}
+      ${r.status==='pending'&&!forOwner&&r.plot!==S.plot.num?`<button class="btn sm alt" onclick="decideResReq(${r.id},true)">Демо: собственник согласился</button><button class="btn sm alt" onclick="decideResReq(${r.id},false)">Демо: отказался</button>`:''}</div>`}).join('');
+}
+function plotsAdminView(by){
+  const counts={perm:0,seasonal:0,absent:0,unknown:0};
+  S.streets.forEach(st=>st.plots.forEach(n=>counts[plotInfo(n).res]++));
+  return `<div class="card"><h3>Участков в СНТ: ${totalPlots()}</h3>${Object.keys(RES).map(k=>`<div class="kv"><span>${RES[k][0]}</span><b>${counts[k]}</b></div>`).join('')}</div>
+    <div class="card"><h3>Отметки проживания для жителей</h3>
+      <p class="muted">Сейчас: ${S.showRes?'видны всем жителям':'скрыты от жителей, видите только вы'}. Гости сайта не видят ничего.</p>
+      <button class="btn" onclick="toggleShowRes('${by}')">${S.showRes?'Скрыть от жителей':'Показать жителям'}</button></div>
+    <div class="card"><h3>Добавить участок</h3>
+      <label class="lb" for="apNum">Номер участка</label><input class="fld" id="apNum" type="number" min="1">
+      <label class="lb" for="apStreet">Улица</label><select class="fld" id="apStreet">${S.streets.map(x=>`<option value="${x.q}-${x.s}" ${x.q===mapQ&&x.s===mapS?'selected':''}>Квартал ${x.q}, ${x.s}-я улица</option>`).join('')}</select>
+      <label class="lb" for="apArea">Площадь, м²</label><input class="fld" id="apArea" type="number" min="1">
+      <label class="lb" for="apCad">Кадастровый номер</label><input class="fld" id="apCad" type="text" placeholder="00:00:000000:0000">
+      <button class="btn" onclick="addPlot('${by}')">Добавить участок</button></div>
+    <div class="card"><h3>Запросить изменение отметки проживания</h3>
+      <label class="lb" for="rsPlot">Номер участка</label><input class="fld" id="rsPlot" type="number" min="1">
+      <label class="lb" for="rsVal">Отметка</label><select class="fld" id="rsVal">${['perm','seasonal','absent'].map(k=>`<option value="${k}">${RES[k][0]}</option>`).join('')}</select>
+      <p class="muted">Отметка меняется только после согласия собственника участка.</p>
+      <button class="btn" onclick="requestRes('${by}')">Отправить собственнику</button></div>
+    <h3 style="margin:18px 0 8px">Запросы</h3>${resReqList(false)}`;
+}
+
+/* реклама */
+function adCard(a){
+  return `<div class="card"><span class="chip wait">Реклама</span><h3 style="margin:8px 0 4px">${esc(a.title)}</h3><p style="margin:4px 0">${esc(a.text)}</p>
+    <div class="muted">${esc(a.contact)} · Рекламодатель: ${esc(a.advertiser)}${a.inn?', ИНН '+esc(a.inn):''}${a.erid?' · erid: '+esc(a.erid):''}</div></div>`;
+}
+function renderHomeAds(){
+  const live=S.ads.filter(a=>a.status==='paid');
+  const b=document.getElementById('homeBanner'),f=document.getElementById('homeAds');
+  if(b)b.innerHTML=live.filter(a=>a.slot==='banner').map(adCard).join('');
+  if(f)f.innerHTML=live.filter(a=>a.slot==='feed').map(adCard).join('')||'<p class="muted">Свободное рекламное место.</p>';
+}
+function orderAdLink(){if(view==='owner')ownerTab='ads';render();show('cab')}
+const AD_ST={pending:['wait','На проверке у председателя'],approved:['wait','Ждёт оплаты'],paid:['done','Опубликована'],rejected:['no','Отклонена'],removed:['no','Снята с публикации']};
+const AD_SLOT={banner:'Баннер на главной',feed:'Объявление в ленте'};
+function adsOwnerView(){
+  const me=viewer(),mine=S.ads.filter(a=>a.owner===me.id);
+  return `<div class="card"><h3>Заказать рекламу</h3>
+    <p class="muted">Размещение платное: баннер на главной ${S.adPrices.banner} ₽ в месяц, объявление в ленте ${S.adPrices.feed} ₽ в месяц. Реклама показывается жителям с пометкой «Реклама» и данными рекламодателя. Правление может отказать, если содержание нарушает закон или правила СНТ.</p>
+    <label class="lb" for="adTitle">Заголовок</label><input class="fld" id="adTitle" type="text" maxlength="80">
+    <label class="lb" for="adText">Текст</label><textarea class="fld" id="adText" rows="3" maxlength="300"></textarea>
+    <label class="lb" for="adContact">Телефон или сайт</label><input class="fld" id="adContact" type="text">
+    <label class="lb" for="adWho">Рекламодатель (наименование или ФИО)</label><input class="fld" id="adWho" type="text">
+    <label class="lb" for="adInn">ИНН рекламодателя</label><input class="fld" id="adInn" type="text" inputmode="numeric" maxlength="12">
+    <label class="lb" for="adSlot">Где разместить</label><select class="fld" id="adSlot">${Object.keys(AD_SLOT).map(k=>`<option value="${k}">${AD_SLOT[k]}</option>`).join('')}</select>
+    <label class="lb" for="adMonths">Срок</label><select class="fld" id="adMonths">${[1,3,6,12].map(m=>`<option value="${m}">${m} мес.</option>`).join('')}</select>
+    <button class="btn" onclick="orderAd()">Отправить на проверку</button></div>
+    <h3 style="margin:18px 0 8px">Мои заявки</h3>
+    ${mine.length?mine.map(a=>`<div class="card"><div class="kv"><b>${esc(a.title)}</b><span class="chip ${AD_ST[a.status][0]}">${AD_ST[a.status][1]}</span></div>
+      <div class="muted">${AD_SLOT[a.slot]}, ${a.months} мес., ${a.price} ₽</div>
+      ${a.status==='approved'?'<div class="muted">Заявка одобрена. Реквизиты для оплаты придут по СМС, после оплаты реклама будет опубликована.</div>':''}</div>`).join(''):'<p class="muted">Заявок пока нет.</p>'}`;
+}
+function orderAd(){
+  const me=viewer(),title=val('adTitle'),text=val('adText'),contact=val('adContact'),who=val('adWho'),inn=val('adInn'),slot=val('adSlot'),months=Number(val('adMonths'));
+  if(!title||!text||!contact||!who){flash='Заполните заголовок, текст, контакт и рекламодателя.';return render()}
+  if(!/^(\d{10}|\d{12})$/.test(inn)){flash='ИНН должен состоять из 10 или 12 цифр.';return render()}
+  const price=months*S.adPrices[slot];
+  S.ads.unshift({id:S.nextAd++,owner:me.id,title,text,contact,advertiser:who,inn,slot,months,price,status:'pending',erid:''});
+  notify('ch','ad','Новая заявка на рекламу: «'+title+'»');
+  flash='Заявка отправлена на проверку. Стоимость: '+price+' ₽.';render();
+}
+function decideAd(id,ok){
+  if(!isTop(viewer().id))return;
+  const a=S.ads.find(x=>x.id===id);a.status=ok?'approved':'rejected';
+  notify(a.owner,'ad',ok?'Реклама «'+a.title+'» одобрена. К оплате: '+a.price+' ₽':'Реклама «'+a.title+'» отклонена');
+  log(personName(viewer().id),(ok?'Одобрил(а)':'Отклонил(а)')+' рекламу «'+a.title+'»');
+  flash=ok?'Заявка одобрена. Ждём оплату.':'Заявка отклонена.';render();
+}
+function publishAd(id){
+  if(!isTop(viewer().id))return;
+  const a=S.ads.find(x=>x.id===id),erid=val('ae'+id);
+  if(!erid){flash='Для публикации нужен erid, который выдаёт оператор рекламных данных (ОРД).';return render()}
+  a.erid=erid;a.status='paid';
+  notify(a.owner,'ad','Реклама «'+a.title+'» опубликована');
+  log(personName(viewer().id),'Опубликовал(а) рекламу «'+a.title+'» после оплаты');
+  flash='Оплата отмечена, реклама опубликована.';render();
+}
+function removeAd(id){
+  if(!isTop(viewer().id))return;
+  const a=S.ads.find(x=>x.id===id);a.status='removed';
+  notify(a.owner,'ad','Реклама «'+a.title+'» снята с публикации');
+  log(personName(viewer().id),'Снял(а) рекламу «'+a.title+'»');flash='Реклама снята с публикации.';render();
+}
+function saveAdPrices(){
+  if(!isTop(viewer().id))return;
+  const b=Number(val('prBanner')),f=Number(val('prFeed'));
+  if(!(b>0)||!(f>0)){flash='Цены должны быть положительными числами.';return render()}
+  S.adPrices={banner:b,feed:f};log(personName(viewer().id),'Изменил(а) цены на рекламу');flash='Цены сохранены.';render();
+}
+function adsAdminView(by){
+  const list=S.ads.map(a=>{
+    let ctl='';
+    if(a.status==='pending')ctl=`<button class="btn sm" onclick="decideAd(${a.id},true)">Одобрить</button><button class="btn sm bad" onclick="decideAd(${a.id},false)">Отклонить</button>`;
+    if(a.status==='approved')ctl=`<label class="lb" for="ae${a.id}">erid (из ОРД)</label><input class="fld" id="ae${a.id}" type="text"><button class="btn sm" onclick="publishAd(${a.id})">Оплата получена, опубликовать</button>`;
+    if(a.status==='paid')ctl=`<button class="btn sm bad" onclick="removeAd(${a.id})">Снять с публикации</button>`;
+    return `<div class="card"><div class="kv"><b>${esc(a.title)}</b><span class="chip ${AD_ST[a.status][0]}">${AD_ST[a.status][1]}</span></div>
+      <div class="muted">${AD_SLOT[a.slot]}, ${a.months} мес., ${a.price} ₽. Рекламодатель: ${esc(a.advertiser)}, ИНН ${esc(a.inn)}. Заказал: ${esc(personName(a.owner))}</div>
+      <p style="margin:6px 0">${esc(a.text)}</p>${ctl}</div>`}).join('');
+  return `<div class="card"><h3>Цены на рекламу, ₽ в месяц</h3>
+    <label class="lb" for="prBanner">Баннер на главной</label><input class="fld" id="prBanner" type="number" min="1" value="${S.adPrices.banner}">
+    <label class="lb" for="prFeed">Объявление в ленте</label><input class="fld" id="prFeed" type="number" min="1" value="${S.adPrices.feed}">
+    <p class="muted">Реклама в интернете маркируется: пометка «Реклама», данные рекламодателя и идентификатор erid. Порядок оплаты и учёт доходов согласуйте с бухгалтером и юристом.</p>
+    <button class="btn" onclick="saveAdPrices()">Сохранить цены</button></div>
+    <h3 style="margin:18px 0 8px">Заявки</h3>${list||'<p class="muted">Заявок нет.</p>'}`;
+}
+
+
+/* ---------- Анкета другого пользователя ---------- */
+function openProfile(id){if(view==='reg')return;profileOpen=id;render();show('cab')}
+function closeProfile(){profileOpen=null;render()}
+function editOwnProfile(){profileOpen=null;goTab('prof');render()}
+function writeTo(id){profileOpen=null;goTab('talk');talkTab='dm';dmOpen=id;chatOpen=null;render()}
+function canWriteDm(){
+  if(view==='admin'||view==='reg')return false;
+  if(view==='user'){const u=S.plot.users.find(x=>x.id===userSel);return !!(u&&u.perms.chat)}
+  return true;
+}
+function otherProfileView(id){
+  const me=viewer(),p=person(id),post=personPost(id),bd=birthPublic(p),self=id===me.id;
+  const off=S.officers.find(o=>o.id===(id==='o1'?'b17':id));
+  const plot=personPlot(id);
+  return `<button class="btn sm alt" style="margin-top:0" onclick="closeProfile()">← Назад</button>
+    <div class="card"><div class="row2">${avatarHtml(id,'lg',true)}<div style="min-width:0"><h3>${esc(personName(id))}</h3>${post?`<span class="chip">${esc(post)}</span>`:''}
+      <div class="muted">${plot?'Участок '+plot+', '+esc(streetNameOf(streetKeyOf(plot))):''}</div></div></div>
+      ${p.about?`<p style="margin:12px 0 0">${esc(p.about)}</p>`:'<p class="muted">О себе ничего не указано.</p>'}
+      ${bd?`<div class="kv"><span>День рождения</span><b>🎂 ${esc(bd)}</b></div>`:''}
+      ${off?`<div class="kv"><span>Ответственность</span><span>${esc(off.duty)}</span></div><div class="kv"><span>Приём</span><span>${esc(off.hours)}</span></div>`:''}
+      ${self&&view!=='admin'?'<button class="btn" onclick="editOwnProfile()">Редактировать мою анкету</button>':''}
+      ${!self&&canWriteDm()&&id!=='adm'?`<button class="btn" onclick="writeTo('${id}')">Написать сообщение</button>`:''}
+      ${!self&&off&&view==='owner'?`<button class="btn alt" onclick="askOfficer('${off.id}')">Задать вопрос</button>`:''}</div>`;
+}
+
+
+/* ---------- Показания: история, бухгалтер, электрик ---------- */
+const CUR_M='2026-10';
+const HIST=['2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08','2026-09'];
+const MS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+function mLabel(m){const [y,x]=m.split('-');return MS[Number(x)-1]+' '+y}
+function readingsOf(n){
+  if(!S.meter[n]){
+    let v=2000+(n*53)%3000;const arr=[];
+    HIST.forEach((m,i)=>{
+      const winter=['2025-12','2026-01','2026-02'].includes(m);
+      v+=45+((n*13+i*29)%70)+(winter?55:0);
+      arr.push({m,value:v,by:'Владелец участка',flag:null,note:'',anomaly:false});
+    });
+    if(n%37===0){const l=arr[arr.length-1];l.value+=420;l.anomaly=true}
+    if(n===20){const d=9421-arr[arr.length-1].value;arr.forEach(e=>{e.value+=d;e.by='Пётр Иванов'})}
+    S.meter[n]=arr;
+  }
+  return S.meter[n];
+}
+function avgCons(arr,end){const xs=[];for(let i=Math.max(1,end-6);i<end;i++)xs.push(arr[i].value-arr[i-1].value);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:0}
+function allAnomalies(){
+  const out=[];
+  S.streets.forEach(st=>st.plots.forEach(n=>{
+    const a=readingsOf(n),i=a.length-1;if(i<2)return;
+    const c=a[i].value-a[i-1].value,av=avgCons(a,i);
+    if(av>0&&c>3*av)out.push({n,m:a[i].m,c,av:Math.round(av)});
+  }));
+  return out;
+}
+const FLAG_ST={checked:['done','Проверено'],disputed:['no','Оспорено'],inspect:['wait','Нужна проверка счётчика']};
+function flagControls(n,e,on){
+  if(!on)return '';
+  const post=staffPost(viewer().id);
+  if(post==='accountant')return `<div><button class="btn sm" onclick="flagReading(${n},'${e.m}','checked')">Проверено</button><button class="btn sm bad" onclick="flagReading(${n},'${e.m}','disputed')">Оспорить</button><button class="btn sm alt" onclick="flagReading(${n},'${e.m}','')">Снять отметку</button></div>`;
+  if(post==='electrician')return `<div><button class="btn sm" onclick="flagReading(${n},'${e.m}','inspect')">Назначить проверку счётчика</button><button class="btn sm alt" onclick="flagReading(${n},'${e.m}','')">Снять отметку</button></div>`;
+  return '';
+}
+function historyCard(n,staff){
+  const arr=readingsOf(n),cons=arr.map((e,i)=>i>0?e.value-arr[i-1].value:null);
+  const mx=Math.max(1,...cons.filter(c=>c!=null));
+  const bars=arr.map((e,i)=>cons[i]==null?'':`<div class="col" title="${esc(mLabel(e.m))}: ${cons[i]} кВт·ч"><div class="b" style="height:${Math.round(cons[i]/mx*70)+4}px"></div><span>${MS[Number(e.m.split('-')[1])-1][0]}</span></div>`).join('');
+  const list=arr.map((e,i)=>({e,i})).reverse().map(({e,i})=>{
+    const fl=e.flag?FLAG_ST[e.flag]:null;
+    return `<div class="vrow"><div class="kv"><b>${esc(mLabel(e.m))}</b><span>${e.value} кВт·ч</span></div>
+      <div class="muted">${cons[i]==null?'начальные показания':'расход '+cons[i]+' кВт·ч'} · передал(а): ${esc(e.by)}${e.anomaly?' · повышенный расход':''}</div>
+      ${fl?`<span class="chip ${fl[0]}">${fl[1]}</span> <span class="muted">${esc(e.note)}</span>`:''}${staff?flagControls(n,e,i>=arr.length-3):''}</div>`}).join('');
+  return `<div class="card"><h3>История показаний, участок ${n}</h3><p class="muted">Расход по месяцам, кВт·ч</p><div class="bars">${bars}</div>${list}</div>`;
+}
+function flagReading(n,m,flag){
+  const me=viewer(),post=staffPost(me.id);
+  const allowed=post==='accountant'?['checked','disputed','']:post==='electrician'?['inspect','']:[];
+  if(!allowed.includes(flag)){flash='У вас нет права на это действие.';return render()}
+  const note=val('rdNote');
+  if((flag==='disputed'||flag==='inspect')&&!note){flash='Напишите комментарий: причину или что нужно проверить.';return render()}
+  const e=readingsOf(n).find(x=>x.m===m);e.flag=flag||null;e.note=flag?note:'';
+  log(personName(me.id),flag?'Отметил(а) показания участка '+n+' за '+mLabel(m)+': '+FLAG_ST[flag][1]:'Снял(а) отметку с показаний участка '+n+' за '+mLabel(m));
+  if(n===S.plot.num&&flag)notify('o1','meter','Показания за '+mLabel(m)+': '+FLAG_ST[flag][1]+'. '+note);
+  flash=flag?'Отметка сохранена, владелец получит уведомление.':'Отметка снята.';render();
+}
+function setReadSel(n){readSel=n;render()}
+function readFind(){const n=Number(val('rdFind'));if(!plotStreet(n)){flash='Такого участка нет.';return render()}readSel=n;render()}
+function readingsAllView(){
+  const all=allAnomalies(),post=staffPost(viewer().id),canFlag=post==='accountant'||post==='electrician';
+  return `<div class="card"><h3>Сводка</h3><div class="kv"><span>Участков</span><b>${totalPlots()}</b></div>
+    <div class="kv"><span>Повышенный расход (в 3 раза выше обычного)</span><b>${all.length}</b></div></div>
+    <div class="card"><h3>Повышенный расход</h3>${all.slice(0,8).map(a=>`<div class="kv"><span>Участок ${a.n}, ${esc(mLabel(a.m))}: ${a.c} кВт·ч (обычно ~${a.av})</span><button class="btn sm alt" style="margin:0" onclick="setReadSel(${a.n})">Открыть</button></div>`).join('')||'<p class="muted">Нет.</p>'}</div>
+    <div class="card"><label class="lb" for="rdFind" style="margin-top:0">Номер участка</label><input class="fld" id="rdFind" type="number" min="1" value="${readSel}"><button class="btn sm" onclick="readFind()">Показать</button>
+      ${canFlag?'<label class="lb" for="rdNote">Комментарий к отметке</label><input class="fld" id="rdNote" type="text" placeholder="Причина или что нужно проверить">':'<p class="muted">Просмотр без права ставить отметки.</p>'}</div>
+    ${historyCard(readSel,true)}`;
+}
+function feeFind(){const n=Number(val('feFind'));if(!plotStreet(n)){flash='Такого участка нет.';return render()}feeSel=n;render()}
+function markPaid(n){
+  if(staffPost(viewer().id)!=='accountant')return;
+  const f=feeOf(n);f.paid=true;
+  log(personName(viewer().id),'Отметил(а) оплату взноса участка '+n);
+  if(n===S.plot.num)notify('o1','meter','Оплата членского взноса принята');
+  flash='Оплата отмечена.';render();
+}
+function feesAdminView(){
+  const debtors=[];S.streets.forEach(st=>st.plots.forEach(n=>{if(!feeOf(n).paid)debtors.push(n)}));
+  const f=feeOf(feeSel);
+  return `<div class="card"><h3>Взносы</h3><div class="kv"><span>Участков с задолженностью</span><b>${debtors.length}</b></div>
+    <div class="kv"><span>Сумма задолженности</span><b>${debtors.reduce((a,n)=>a+feeOf(n).amount,0)} ₽</b></div></div>
+    <div class="card"><label class="lb" for="feFind" style="margin-top:0">Номер участка</label><input class="fld" id="feFind" type="number" min="1" value="${feeSel}"><button class="btn sm" onclick="feeFind()">Показать</button>
+      <div class="kv"><span>Участок ${feeSel}</span><span class="chip ${f.paid?'':'no'}">${f.paid?'Оплачено':'Не оплачено'}</span></div>
+      <div class="kv"><span>Взнос</span><b>${f.amount} ₽</b></div>
+      ${f.paid?'':`<button class="btn" onclick="markPaid(${feeSel})">Отметить оплату</button>`}</div>
+    <div class="card"><h3>Должники (первые 12)</h3>${debtors.slice(0,12).map(n=>`<div class="kv"><span>Участок ${n}</span><button class="btn sm alt" style="margin:0" onclick="feeSel=${n};render()">Открыть</button></div>`).join('')||'<p class="muted">Нет.</p>'}</div>`;
+}
+
+/* кабинет бухгалтера и электрика */
+function setStaffTab(k){staffTab=k;render()}
+function renderStaff(){
+  const o=viewerOfficer(),isAcc=view==='acc',want=isAcc?'accountant':'electrician',title=isAcc?'Бухгалтер':'Электрик';
+  if(!o||o.post!==want)return `<h2>${title}</h2><div class="warn">Эта должность за вами не закреплена. Вам доступны главная страница и общение как жителю.</div>`;
+  const un=notifUnread(viewer().id),tu=unreadFor(viewer().id);
+  const tabs=[['notif','🔔 Уведомления'+(un?' ('+un+')':'')],['read','Показания']].concat(isAcc?[['fees','Взносы']]:[]).concat([['ap','Обращения'],['talk','Общение'+(tu?' ('+tu+')':'')],['prof','Профиль'],['me','Моя должность']]);
+  if(!tabs.some(t=>t[0]===staffTab))staffTab='read';
+  let body='';
+  if(staffTab==='notif')body=notifView();
+  if(staffTab==='read')body=readingsAllView();
+  if(staffTab==='fees')body=feesAdminView();
+  if(staffTab==='ap')body=appealsView();
+  if(staffTab==='talk')body=talkView();
+  if(staffTab==='prof')body=profileView();
+  if(staffTab==='me')body=myOfficerView();
+  return `${F()}<h2>${title}</h2><p class="muted">${esc(officerName(o))}</p>${tabsHtml(tabs,staffTab,'setStaffTab')}${body}`;
+}
+
+/* ---------- Опросы жителей ---------- */
+function pollTotals(p){const c=p.base.slice();Object.values(p.votes).forEach(i=>{c[i]++});return c}
+function canVotePoll(){return view!=='reg'&&view!=='admin'}
+function votePoll(id,i){
+  if(!canVotePoll())return;
+  const p=S.polls.find(x=>x.id===id);
+  if(!p.open){flash='Опрос закрыт.';return render()}
+  p.votes[viewer().id]=i;flash='Ваш голос учтён. Его можно изменить, пока опрос открыт.';render();
+}
+function pollCard(p,showAlways){
+  const me=view==='reg'?null:viewer(),my=me?p.votes[me.id]:undefined;
+  const tot=pollTotals(p),sum=tot.reduce((a,b)=>a+b,0)||1,show=showAlways||my!==undefined||!p.open;
+  const btns=canVotePoll()&&p.open?`<div class="vbtns">${p.opts.map((o,i)=>`<button aria-pressed="${my===i}" onclick="votePoll(${p.id},${i})">${esc(o)}</button>`).join('')}</div>`:'';
+  const res=show?p.opts.map((o,i)=>`<div style="margin-top:8px"><div class="kv" style="border:0;padding:0"><span>${esc(o)}</span><b>${tot[i]} (${Math.round(tot[i]/sum*100)}%)</b></div><div class="pbar"><i style="width:${Math.round(tot[i]/sum*100)}%"></i></div></div>`).join('')+`<div class="muted">Проголосовало: ${sum}</div>`:'<div class="muted">Результаты откроются после вашего голоса.</div>';
+  return `<div class="card"><h3>${esc(p.q)}</h3>${p.open?'':'<span class="chip no">Опрос закрыт</span>'}${btns}${res}</div>`;
+}
+function renderHomePolls(){
+  const el=document.getElementById('homePolls');if(!el)return;
+  if(view==='reg'){el.innerHTML='';return}
+  el.innerHTML=(view==='admin'?'<p class="muted">Администратор не голосует, результаты видны всегда.</p>':'')+S.polls.map(p=>pollCard(p,view==='admin'||view==='chair')).join('');
+}
+function createPoll(by){
+  if(!isTop(viewer().id))return;
+  const q=val('plQ'),opts=(($('plOpts')&&$('plOpts').value)||'').split('\n').map(x=>x.trim()).filter(Boolean);
+  if(!q){flash='Напишите вопрос.';return render()}
+  if(opts.length<2||opts.length>6){flash='Нужно от 2 до 6 вариантов ответа, каждый с новой строки.';return render()}
+  S.polls.unshift({id:S.nextPoll++,q,opts,base:opts.map(()=>0),votes:{},open:true});
+  log(by,'Создал(а) опрос: '+q);flash='Опрос создан и показан жителям на главной.';render();
+}
+function togglePoll(id){if(!isTop(viewer().id))return;const p=S.polls.find(x=>x.id===id);p.open=!p.open;log(personName(viewer().id),(p.open?'Открыл(а)':'Закрыл(а)')+' опрос: '+p.q);render()}
+function deletePoll(id){if(!isTop(viewer().id))return;const p=S.polls.find(x=>x.id===id);S.polls=S.polls.filter(x=>x.id!==id);log(personName(viewer().id),'Удалил(а) опрос: '+p.q);flash='Опрос удалён.';render()}
+function pollsAdminView(by){
+  return `<div class="card"><h3>Новый опрос</h3>
+    <label class="lb" for="plQ">Вопрос</label><input class="fld" id="plQ" type="text" maxlength="160" placeholder="Например: нужна ли беседка у правления?">
+    <label class="lb" for="plOpts">Варианты ответа (каждый с новой строки, от 2 до 6)</label><textarea class="fld" id="plOpts" rows="4"></textarea>
+    <p class="muted">Опрос показывается жителям на главной странице. Голосовать можно один раз с аккаунта, голос можно изменить, пока опрос открыт. Опрос не заменяет решение общего собрания.</p>
+    <button class="btn" onclick="createPoll('${by}')">Создать опрос</button></div>
+    <h3 style="margin:18px 0 8px">Опросы</h3>${S.polls.map(p=>pollCard(p,true)+`<div style="margin:-6px 0 14px"><button class="btn sm alt" onclick="togglePoll(${p.id})">${p.open?'Закрыть опрос':'Открыть снова'}</button><button class="btn sm bad" onclick="deletePoll(${p.id})">Удалить</button></div>`).join('')}`;
+}
+
+/* ---------- 3. Собственник ---------- */
+function setOwnerTab(t){ownerTab=t;render()}
+function sendReading(){
+  const n=S.plot.num,arr=readingsOf(n),v=Number(val('rd'));
+  const cur=arr.find(e=>e.m===CUR_M),past=arr.filter(e=>e.m!==CUR_M),prev=past[past.length-1];
+  if(!v||v<prev.value){flash='Показания не могут быть меньше предыдущих ('+prev.value+' кВт·ч).';return render()}
+  if(cur&&cur.flag==='checked'){flash='Показания за этот месяц уже проверены. Для исправления обратитесь к бухгалтеру.';return render()}
+  const c=v-prev.value,av=avgCons(past,past.length),anomaly=av>0&&c>3*av;
+  const entry={m:CUR_M,value:v,by:viewer().name,flag:null,note:'',anomaly};
+  if(cur)Object.assign(cur,entry);else arr.push(entry);
+  log(viewer().name,'Передал(а) показания участка '+n+': '+v+' кВт·ч');
+  if(anomaly)notify('b3','meter','Повышенный расход на участке '+n+': '+c+' кВт·ч за месяц');
+  flash='Показания переданы: '+v+' кВт·ч. Расход за месяц: '+c+' кВт·ч.'+(anomaly?' Расход выше обычного, правление может запросить проверку.':'');render();
+}
+function addUser(){
+  const name=val('uName'),phone=val('uPhone'),role=val('uRole');
+  if(!name||phone.replace(/\D/g,'').length<10){flash='Укажите имя и телефон полностью.';return render()}
+  S.plot.users.push({id:'u'+S.nextUid++,name,phone,role,perms:Object.assign({},roleDefaults[role]),active:true});
+  flash='Пользователь добавлен. Ему отправлено СМС с кодом входа.';render();
+}
+function dropDelegateIfNeeded(u){if(S.plot.delegate===u.id&&(!u.active||!u.perms.vote)){S.plot.delegate=null;resetBallots()}}
+function togglePerm(id,p){const u=S.plot.users.find(x=>x.id===id);u.perms[p]=!u.perms[p];dropDelegateIfNeeded(u);render()}
+function toggleActive(id){const u=S.plot.users.find(x=>x.id===id);u.active=!u.active;dropDelegateIfNeeded(u);flash=u.active?'Доступ включён.':'Доступ отключён.';render()}
+function removeUser(id){S.plot.users=S.plot.users.filter(x=>x.id!==id);if(S.plot.delegate===id){S.plot.delegate=null;resetBallots()}flash='Пользователь удалён.';render()}
+function addOwner(){
+  const name=val('oName');if(!name){flash='Введите имя сособственника.';return render()}
+  S.plot.owners.push({id:'o'+S.nextOid++,name,member:$('oMem').checked});resetBallots();
+  flash='Сособственник добавлен. Голосов у участка: '+voters().length+'.';render();
+}
+function toggleMember(id){const o=S.plot.owners.find(x=>x.id===id);o.member=!o.member;resetBallots();render()}
+function removeOwner(id){S.plot.owners=S.plot.owners.filter(x=>x.id!==id);resetBallots();render()}
+function setDelegate(){const v=val('dSel');S.plot.delegate=v||null;resetBallots();flash=v?'Право голоса передано. С участка учитывается один голос.':'Право голоса возвращено собственникам.';render()}
+function vote(q,vid,c){S.ballots[q][vid]=c;render()}
+
+function meterCard(){
+  const n=S.plot.num,arr=readingsOf(n),last=arr[arr.length-1];
+  return `<div class="card"><h3>Показания счётчика</h3>
+    <div class="kv"><span>Последние</span><b>${last.value} кВт·ч, ${esc(mLabel(last.m))}</b></div>
+    <label class="lb" for="rd">Новые показания, кВт·ч</label>
+    <input class="fld" id="rd" type="number" inputmode="numeric" placeholder="${last.value+60}">
+    <button class="btn" onclick="sendReading()">Передать показания</button></div>`+historyCard(n,false);
+}
+function profileCard(){const o=S.plot.owners[0];return `<div class="card"><h3>Мои данные</h3>
+  <div class="kv"><span>ФИО</span><b>${esc(o.name)}</b></div>
+  <div class="kv"><span>Телефон</span><b>${esc(S.plot.ownerPhone)}</b></div>
+  <div class="kv"><span>Площадь участка</span><b>${S.plot.area} м²</b></div>
+  <div class="kv"><span>Член СНТ</span><b>${o.member?'Да':'Нет'}</b></div></div>`}
+function feeOf(n){if(!S.fees[n])S.fees[n]={amount:4800,paid:n%5!==0};return S.fees[n]}
+function feesCard(){const f=feeOf(S.plot.num);return `<div class="card"><h3>Взносы</h3>
+  <div class="kv"><span>Членский взнос 2026</span><b>${f.amount} ₽</b></div>
+  <div class="kv"><span>Статус</span><span class="chip ${f.paid?'':'no'}">${f.paid?'Оплачено':'Не оплачено'}</span></div>
+  <div class="kv"><span>Задолженность</span><b>${f.paid?'нет':f.amount+' ₽'}</b></div></div>`}
+function docsCard(){return `<div class="card"><h3>Документы</h3>
+  <div class="kv"><span>Устав СНТ</span><span class="muted">PDF</span></div>
+  <div class="kv"><span>Протокол последнего собрания</span><span class="muted">PDF</span></div>
+  <div class="kv"><span>Смета на 2027 год</span><span class="muted">PDF</span></div></div>`}
+
+function voteCards(canVote){
+  const vs=voters();
+  const head=`<div class="card"><h3>Голосов у участка ${S.plot.num}: ${vs.length}</h3><p class="muted">${
+    S.plot.delegate?'Право голоса передано. С участка считается один голос.':S.rule==='plot'?'По правилам СНТ — один голос на участок.':'По правилам СНТ — по голосу на каждого собственника, являющегося членом СНТ.'}</p></div>`;
+  const qs=Q.map(q=>{
+    const t=tally(q.id),n=vs.length,done=t.for+t.against+t.abst;
+    const rows=vs.filter(v=>canVote(v)).map(v=>`<div class="vrow"><b>${esc(v.name)}</b><div class="vbtns">${
+      [['for','За'],['against','Против'],['abst','Воздержался']].map(([c,l])=>`<button aria-pressed="${S.ballots[q.id][v.id]===c}" onclick="vote('${q.id}','${v.id}','${c}')">${l}</button>`).join('')}</div></div>`).join('');
+    const pct=k=>n?Math.round(t[k]/n*100):0;
+    return `<div class="card"><h3>${esc(q.t)}</h3>${rows||'<p class="muted">Вы не можете голосовать по этому вопросу.</p>'}
+      <div class="bar"><i style="width:${pct('for')}%;background:var(--field)"></i><i style="width:${pct('against')}%;background:#B3392F"></i><i style="width:${pct('abst')}%;background:#9AA8A0"></i></div>
+      <div class="muted">За ${t.for}, против ${t.against}, воздержались ${t.abst}. Проголосовало ${done} из ${n}.</div></div>`}).join('');
+  return head+qs;
+}
+
+function renderOwner(){
+  const p=S.plot,pend=S.changes.filter(c=>c.status==='pending').length+S.postReqs.filter(r=>r.plot===S.plot.num&&r.status==='pending').length+S.resReqs.filter(r=>r.plot===S.plot.num&&r.status==='pending').length;
+  const tabs=[['plot','Участок'],['notif','🔔 Уведомления'+(notifUnread('o1')?' ('+notifUnread('o1')+')':'')],['users','Мои пользователи'],['owners','Собственники'],['vote','Голосование'],['ap','Обращения'],['talk','Общение'+(unreadFor('o1')?' ('+unreadFor('o1')+')':'')],['prof','Профиль'],['ads','Реклама'],['chg','Согласования'+(pend?' ('+pend+')':'')]].concat(officerOf(S.plot.num)?[['me','Моя должность']]:[]);
+  if(ownerTab==='me'&&!officerOf(S.plot.num))ownerTab='plot';
+  let body='';
+  if(ownerTab==='me')body=myOfficerView();
+  if(ownerTab==='plot')body=profileCard()+residenceCard()+feesCard()+meterCard();
+  if(ownerTab==='chg')body=`<p class="muted">Запросы председателя или администратора на изменение ваших данных. Без вашего согласия ничего не меняется.</p>`+changesList(true)+postReqList(true)+resReqList(true);
+  if(ownerTab==='users'){
+    body=p.users.map(u=>`<div class="card"><div class="kv"><b>${esc(u.name)}</b><span class="chip ${u.active?'':'no'}">${u.active?esc(u.role):'Отключён'}</span></div>
+      <div class="muted">${esc(u.phone)}</div>
+      ${Object.keys(permLabels).map(k=>`<label class="chk"><input type="checkbox" ${u.perms[k]?'checked':''} onchange="togglePerm('${u.id}','${k}')"> ${permLabels[k]}</label>`).join('')}
+      <button class="btn sm alt" onclick="toggleActive('${u.id}')">${u.active?'Отключить доступ':'Включить доступ'}</button>
+      <button class="btn sm bad" onclick="removeUser('${u.id}')">Удалить</button></div>`).join('')+
+    `<div class="card"><h3>Добавить пользователя</h3>
+      <label class="lb" for="uName">Имя</label><input class="fld" id="uName" type="text">
+      <label class="lb" for="uPhone">Телефон</label><input class="fld" id="uPhone" type="tel" placeholder="+7 900 000-00-00">
+      <label class="lb" for="uRole">Кто это</label>
+      <select class="fld" id="uRole">${Object.keys(roleDefaults).map(r=>`<option>${r}</option>`).join('')}</select>
+      <p class="muted">Права выставятся по роли, потом их можно изменить галочками.</p>
+      <button class="btn" onclick="addUser()">Добавить и отправить СМС</button></div>`;
+  }
+  if(ownerTab==='owners'){
+    body=`<div class="card"><h3>Собственники участка ${p.num}</h3>${p.owners.map((o,i)=>`<div class="vrow"><div class="kv"><b>${esc(o.name)}</b>${i?`<button class="btn sm bad" onclick="removeOwner('${o.id}')">Удалить</button>`:'<span class="chip">основной</span>'}</div>
+      <label class="chk"><input type="checkbox" ${o.member?'checked':''} onchange="toggleMember('${o.id}')"> Член СНТ (имеет право голоса)</label></div>`).join('')}</div>
+    <div class="card"><h3>Добавить сособственника</h3>
+      <label class="lb" for="oName">Имя</label><input class="fld" id="oName" type="text">
+      <label class="chk"><input type="checkbox" id="oMem" checked> Член СНТ</label>
+      <button class="btn" onclick="addOwner()">Добавить</button>
+      <p class="muted">Подтверждение сособственника в реальной системе проходит через администратора.</p></div>`;
+  }
+  if(ownerTab==='vote'){
+    const cand=p.users.filter(u=>u.active&&u.perms.vote);
+    body=`<div class="card"><h3>Передать право голоса</h3>
+      <select class="fld" id="dSel"><option value="">Не передавать (голосуют собственники)</option>${cand.map(u=>`<option value="${u.id}" ${p.delegate===u.id?'selected':''}>${esc(u.name)}</option>`).join('')}</select>
+      <p class="muted">В списке только пользователи, которым вы разрешили голосовать. После передачи с участка учитывается один голос.</p>
+      <button class="btn" onclick="setDelegate()">Сохранить</button></div>`+
+      voteCards(()=>true)+`<p class="muted">В демо можно нажимать за каждого. На настоящем сайте каждый голосует со своего телефона.</p>`;
+  }
+  if(ownerTab==='ap')body=appealsView();
+  if(ownerTab==='notif')body=notifView();
+  if(ownerTab==='talk')body=talkView();
+  if(ownerTab==='prof')body=profileView();
+  if(ownerTab==='ads')body=adsOwnerView();
+  return `${F()}<h2>Участок ${p.num}</h2>${tabsHtml(tabs,ownerTab,'setOwnerTab')}${body}`;
+}
+
+/* ---------- 4. Пользователь участка ---------- */
+function setUser(id){userSel=id;userTab=null;profileOpen=null;chatOpen=null;dmOpen=null;talkTab='chats';render()}
+function setUserTab(t){userTab=t;render()}
+function renderUser(){
+  const p=S.plot,u=p.users.find(x=>x.id===userSel)||p.users[0];
+  if(!u)return '<h2>Нет пользователей</h2><p>Сначала добавьте их в кабинете собственника.</p>';
+  const picker=`<div class="card"><label class="lb" for="uPick" style="margin-top:0">Смотреть как</label>
+    <select class="fld" id="uPick" onchange="setUser(this.value)">${p.users.map(x=>`<option value="${x.id}" ${x.id===u.id?'selected':''}>${esc(x.name)} (${esc(x.role)})</option>`).join('')}</select></div>`;
+  if(!u.active)return `${F()}<h2>Участок ${p.num}</h2>${picker}<div class="warn">Собственник отключил вам доступ. Информация СНТ вам недоступна.</div>`;
+  const tabs=[['home','Главная']];
+  if(u.perms.notify)tabs.push(['notif','🔔 Уведомления'+(notifUnread(u.id)?' ('+notifUnread(u.id)+')':'')]);
+  if(u.perms.fees)tabs.push(['fees','Взносы']);
+  if(u.perms.meter)tabs.push(['meter','Счётчик']);
+  if(u.perms.docs)tabs.push(['docs','Документы']);
+  if(u.perms.vote)tabs.push(['vote','Голосование']);
+  if(u.perms.appeals)tabs.push(['ap','Обращения']);
+  if(u.perms.chat)tabs.push(['talk','Общение'+(unreadFor(u.id)?' ('+unreadFor(u.id)+')':'')]);
+  tabs.push(['prof','Профиль']);
+  const cur=tabs.some(t=>t[0]===userTab)?userTab:'home';
+  let body='';
+  if(cur==='home')body=`<div class="card"><h3>${esc(u.name)}</h3><div class="kv"><span>Роль</span><b>${esc(u.role)}</b></div>
+    <div class="kv"><span>Доступно разделов</span><b>${tabs.length-1}</b></div>
+    <p class="muted">Что вам разрешено, решает собственник участка.</p></div>
+    <div class="card"><h3>Объявления</h3><div class="kv"><span>Отключение воды в субботу с 9:00 до 15:00</span></div></div>`;
+  if(cur==='fees')body=feesCard();
+  if(cur==='meter')body=meterCard();
+  if(cur==='docs')body=docsCard();
+  if(cur==='ap')body=appealsView();
+  if(cur==='notif')body=notifView();
+  if(cur==='talk')body=talkView();
+  if(cur==='prof')body=profileView();
+  if(cur==='vote')body=p.delegate===u.id
+    ?voteCards(v=>v.id===u.id)
+    :`<div class="warn">Право голоса вам не передано. Его может передать только собственник участка.</div>`;
+  return `${F()}<h2>Участок ${p.num}</h2>${picker}${tabsHtml(tabs,cur,'setUserTab')}${body}`;
+}
+
+/* ---------- Обращения и проблемные места ---------- */
+const AP_ST={new:['wait','Новое'],work:['','В работе'],done:['done','Решено']};
+function viewer(){
+  if(view==='acc'||view==='el'){const id=view==='acc'?'b3':'b44';return {id,name:personName(id),plot:personPlot(id)}}
+  if(view==='admin')return {id:'adm',name:'Администратор',plot:null};
+  if(view==='chair'){const o=S.officers.find(x=>x.id==='ch');return {id:'ch',name:S.chair.name,plot:o.plot}}
+  if(view==='owner')return {id:'o1',name:S.plot.owners[0].name,plot:S.plot.num};
+  const u=S.plot.users.find(x=>x.id===userSel)||S.plot.users[0];
+  return {id:u.id,name:u.name,plot:S.plot.num};
+}
+function setApTab(k){apTab=k;apOpen=false;render()}
+function setAdmAp(k){admAp=k;render()}
+function toggleForm(){apOpen=!apOpen;render()}
+function filesChanged(inp){const n=inp.files.length;$('apNames').textContent=n?('Выбрано файлов: '+n):''}
+function mediaHtml(m){return m&&m.length?`<div class="media">${m.map(x=>x.type==='video'?`<video src="${x.url}" controls preload="metadata"></video>`:`<img src="${x.url}" alt="${esc(x.name)}">`).join('')}</div>`:''}
+function apItem(a,adm){
+  const me=viewer(),st=AP_ST[a.status];
+  const meta=(hasPerson(a.authorId)&&view!=='reg'?nameLink(a.authorId):esc(a.author))+(a.plot?', участок '+a.plot:'')+' · '+esc(a.created)+(a.place?' · '+esc(a.place):'')+(a.kind==='personal'?' · кому: '+esc(recipientLabel(a.to||'ch')):'');
+  let controls='';
+  if(adm){
+    controls=`<div>${['new','work','done'].map(k=>`<button class="btn sm ${a.status===k?'':'alt'}" onclick="setApStatus(${a.id},'${k}')">${AP_ST[k][1]}</button>`).join('')}</div>
+      <label class="lb" for="ar${a.id}">Ответ</label><input class="fld" id="ar${a.id}" type="text" placeholder="Ответ председателя">
+      <button class="btn sm" onclick="admReply(${a.id})">Ответить</button>
+      ${a.kind!=='personal'?`<button class="btn sm bad" onclick="toggleHide(${a.id})">${a.hidden?'Показать всем':'Скрыть'}</button>`:''}`;
+  }else{
+    controls=`${a.kind!=='personal'?`<button class="btn sm ${a.supports.includes(me.id)?'':'alt'}" onclick="support(${a.id})">Поддерживаю (${a.supports.length})</button>`:''}
+      <input class="fld" id="cm${a.id}" type="text" placeholder="Комментарий" style="margin-top:8px">
+      <button class="btn sm" onclick="addComment(${a.id})">Отправить</button>`;
+  }
+  return `<div class="card"><div class="kv"><b>${esc(a.title)}</b><span class="chip ${a.hidden?'no':st[0]}">${a.hidden?'Скрыто':st[1]}</span></div>
+    <div class="muted">${meta}</div>
+    <p style="margin:8px 0">${esc(a.text)}</p>${mediaHtml(a.media)}
+    ${a.comments.map(c=>`<div class="cm"><b>${esc(c.who)}</b> <span class="muted">${esc(c.date)}</span><br>${esc(c.text)}</div>`).join('')}
+    ${controls}</div>`;
+}
+function apForm(kind){
+  const title=kind==='personal'?'Новый вопрос':kind==='problem'?'Отметить проблемное место':'Новое общее обращение';
+  const hint=kind==='personal'?'Увидят только вы и тот, кому адресован вопрос.':kind==='problem'?'Увидят все жители. Не снимайте людей и номера машин.':'Увидят все жители.';
+  const to=kind==='personal'?`<label class="lb" for="apToSel">Кому</label><select class="fld" id="apToSel">${S.officers.map(o=>`<option value="${o.id}" ${o.id===apTo?'selected':''}>${esc(postLabel(o))}: ${esc(officerName(o))} (${esc(o.duty)})</option>`).join('')}</select>`:'';
+  return `<div class="card"><h3>${title}</h3><p class="muted">${hint}</p>${to}
+    <label class="lb" for="apTitle">Тема</label><input class="fld" id="apTitle" type="text">
+    ${kind==='problem'?`<label class="lb" for="apPlace">Где это</label><input class="fld" id="apPlace" type="text" placeholder="например, 3-я улица, у участка 40">`:''}
+    <label class="lb" for="apText">Описание</label><textarea class="fld" id="apText" rows="4"></textarea>
+    <label class="lb" for="apFile">Фото или видео (до 5 файлов, каждый до 50 МБ)</label>
+    <input class="fld" id="apFile" type="file" accept="image/*,video/*" multiple onchange="filesChanged(this)">
+    <div class="muted" id="apNames"></div>
+    <button class="btn" onclick="sendAppeal('${kind}')">${kind==='personal'?'Отправить':'Опубликовать'}</button></div>`;
+}
+function sendAppeal(kind){
+  const title=val('apTitle'),text=val('apText');
+  if(!title||!text){flash='Заполните тему и описание.';return render()}
+  const files=$('apFile')?Array.from($('apFile').files):[],media=[];
+  if(files.length>5){flash='Можно прикрепить не больше 5 файлов.';return render()}
+  for(const f of files){
+    const type=f.type.startsWith('video/')?'video':f.type.startsWith('image/')?'image':null;
+    if(!type){flash='Можно прикреплять только фото и видео.';return render()}
+    if(f.size>50*1024*1024){flash='Файл «'+f.name+'» больше 50 МБ.';return render()}
+    media.push({type,url:URL.createObjectURL(f),name:f.name});
+  }
+  const me=viewer();
+  S.appeals.unshift({id:S.nextAp++,kind,to:kind==='personal'?(val('apToSel')||'ch'):'',authorId:me.id,author:me.name,plot:me.plot,title,text,place:kind==='problem'?val('apPlace'):'',media,status:'new',created:'сегодня',supports:[],comments:[],hidden:false});
+  flash=kind==='personal'?'Вопрос отправлен. Адресат получит СМС.':kind==='problem'?'Проблемное место добавлено, его видят все жители.':'Обращение опубликовано для всех жителей.';
+  if(kind==='personal')notify(apAddressee(S.appeals[0]),'appeal','Новый вопрос: «'+title+'» от '+me.name,{appeal:S.appeals[0].id});
+  apOpen=false;render();
+}
+function support(id){const a=S.appeals.find(x=>x.id===id),me=viewer(),i=a.supports.indexOf(me.id);if(i>=0)a.supports.splice(i,1);else a.supports.push(me.id);render()}
+function addComment(id){
+  const t=val('cm'+id);if(!t){flash='Напишите текст комментария.';return render()}
+  const a=S.appeals.find(x=>x.id===id),me=viewer();
+  a.comments.push({who:me.name,text:t,date:'сегодня'});
+  const target=a.kind==='personal'?apAddressee(a):a.authorId;
+  if(target!==me.id)notify(target,'appeal','Новый комментарий к обращению «'+a.title+'»',{appeal:a.id});
+  render();
+}
+function admReply(id){const t=val('ar'+id);if(!t){flash='Напишите ответ.';return render()}const a=S.appeals.find(x=>x.id===id);a.comments.push({who:responder(),text:t,date:'сегодня'});if(a.status==='new')a.status='work';log(responder(),'Ответил на обращение №'+id);notify(a.authorId,'appeal','Ответ на обращение «'+a.title+'»',{appeal:a.id});flash='Ответ отправлен.';render()}
+function setApStatus(id,st){
+  const a=S.appeals.find(x=>x.id===id);a.status=st;
+  log(responder(),'Изменил статус обращения №'+id+' на «'+AP_ST[st][1]+'»');
+  notify(a.authorId,'appeal','Статус обращения «'+a.title+'»: '+AP_ST[st][1],{appeal:a.id});
+  flash='Статус изменён.';render();
+}
+function toggleHide(id){const a=S.appeals.find(x=>x.id===id);a.hidden=!a.hidden;log(responder(),(a.hidden?'Скрыл':'Показал')+' запись №'+id);render()}
+function appealsView(){
+  const me=viewer(),off=viewerOfficer();
+  const inbox=off?S.appeals.filter(a=>!a.hidden&&a.kind==='personal'&&a.to===off.id):[];
+  const tabs=[['mine','Мои вопросы'],['public','Общие'],['problems','Проблемные места']];
+  if(off)tabs.push(['inbox','Мне адресовано'+(inbox.length?' ('+inbox.length+')':'')]);
+  if(apTab==='inbox'&&!off)apTab='mine';
+  const kind=apTab==='public'?'public':apTab==='problems'?'problem':'personal';
+  let list;
+  if(apTab==='inbox')list=inbox;
+  else{
+    list=S.appeals.filter(a=>!a.hidden&&a.kind===kind&&(kind!=='personal'||a.authorId===me.id));
+    if(kind==='problem')list=list.slice().sort((x,y)=>y.supports.length-x.supports.length);
+  }
+  const intro=apTab==='inbox'?'Вопросы жителей, адресованные вам. Видите их только вы и автор.':kind==='personal'?'Личный вопрос председателю, члену правления или старшему по улице. Видите его только вы и тот, кому он адресован.':kind==='public'?'Общие обращения видны всем жителям.':'Отмечайте проблемы, поддерживайте чужие и следите за статусом. Чем больше поддержки, тем выше место в списке.';
+  const canWrite=apTab!=='inbox';
+  return `<h3 style="margin-bottom:6px">Обращения</h3>${tabsHtml(tabs,apTab,'setApTab')}<p class="muted">${intro}</p>
+    ${canWrite?`<button class="btn ${apOpen?'alt':''}" style="margin-top:0;margin-bottom:12px" onclick="toggleForm()">${apOpen?'Отмена':'＋ Написать'}</button>`:''}
+    ${apOpen&&canWrite?apForm(kind):''}${list.length?list.map(x=>apItem(x,apTab==='inbox')).join(''):'<p class="muted">Пока ничего нет.</p>'}`;
+}
+function adminAppeals(){
+  const tabs=[['personal','Личные'],['public','Общие'],['problem','Проблемные места']];
+  const list=S.appeals.filter(a=>a.kind===admAp&&(admAp!=='personal'||(a.to||'ch')==='ch'));
+  return `${tabsHtml(tabs,admAp,'setAdmAp')}<p class="muted">Здесь вопросы, адресованные председателю: их видят только автор и председатель. Общие и проблемные записи можно скрыть, если они нарушают правила.</p>
+    ${list.length?list.map(a=>apItem(a,true)).join(''):'<p class="muted">Нет обращений.</p>'}`;
+}
+
+render();
+buildMap();
+
+/* ---------- Установка на телефон (PWA) ---------- */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('inst').hidden=false});
+$('inst').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();deferredPrompt=null;$('inst').hidden=true});
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+  navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
